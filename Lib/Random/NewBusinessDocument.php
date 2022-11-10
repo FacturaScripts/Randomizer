@@ -18,9 +18,9 @@
  */
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
+use FacturaScripts\Core\Base\Calculator;
 use FacturaScripts\Core\Model\Base\BusinessDocument;
 use FacturaScripts\Core\Model\Base\BusinessDocumentLine;
-use FacturaScripts\Dinamic\Lib\BusinessDocumentTools;
 use FacturaScripts\Dinamic\Model\AgenciaTransporte;
 use Faker;
 
@@ -79,9 +79,8 @@ abstract class NewBusinessDocument extends NewItems
      */
     protected static function recalculate(&$document)
     {
-        $tool = new BusinessDocumentTools();
-        $tool->recalculate($document);
-        $document->save();
+        $lines = $document->getLines();
+        Calculator::calculate($document, $lines, true);
     }
 
     /**
