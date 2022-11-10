@@ -1,4 +1,4 @@
-{% extends "Master/MenuTemplate.html.twig" %}
+{% extends "Master/MenuBghTemplate.html.twig" %}
 
 {% block body %}
     <div class="bg-light pt-5 pb-5">
@@ -9,15 +9,16 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <h1 class="h3 mb-5">
-                            <i class="{{ fsc.getPagedata().icon }}" aria-hidden="true"></i> {{ i18n.trans('generate-test-data') }}
+                            <i class="{{ fsc.getPagedata().icon }}"
+                               aria-hidden="true"></i> {{ i18n.trans('generate-test-data') }}
                             <a href="{{ fsc.url() }}" class="btn btn-sm btn-outline-secondary">
                                 <i class="fas fa-sync" aria-hidden="true"></i>
                             </a>
                         </h1>
                         {% for title, group in fsc.buttonList %}
                             {% if title %}
-                            <h3 class="mt-4">{{ i18n.trans(title) }}</h3>
-                            <hr/>
+                                <h3 class="mt-4">{{ i18n.trans(title) }}</h3>
+                                <hr/>
                             {% endif %}
                             <div class="form-row">
                                 {% for item in group %}
@@ -30,15 +31,6 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block css %}
-    {{ parent() }}
-    <style>
-        .bg-header {
-            background-color: #FAFBFC;
-        }
-    </style>
 {% endblock %}
 
 {% macro genButton(fsc, gen, i18n, icon, label) %}
