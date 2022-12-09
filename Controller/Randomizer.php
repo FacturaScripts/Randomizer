@@ -32,23 +32,19 @@ use Symfony\Component\HttpFoundation\Response;
 class Randomizer extends Base\Controller
 {
 
+    /** @var string */
+    public $option;
+
     /**
      * Contains the total quantity for each model.
-     *
      * @var array
      */
     public $totalCounter = [];
 
-    /**
-     *
-     * @var array
-     */
+    /** @var array */
     public $buttonList = [];
 
-    /**
-     *
-     * @var array
-     */
+    /** @var array */
     private $actionList = [];
 
     /**
@@ -103,10 +99,10 @@ class Randomizer extends Base\Controller
         parent::privateCore($response, $user, $permissions);
 
         $this->loadButtons();
-        $option = $this->request->get('gen', '');
-        if ($option !== '') {
-            $this->execAction($option);
-            $this->redirect($this->url() . '?gen=' . $option, 5);
+        $this->option = $this->request->get('gen', '');
+        if ($this->option !== '') {
+            $this->execAction();
+            $this->redirect($this->url() . '?gen=' . $this->option, 5);
         }
 
         $this->getTotals();
@@ -114,13 +110,11 @@ class Randomizer extends Base\Controller
 
     /**
      * Executes selected action.
-     *
-     * @param string $option
      */
-    private function execAction($option)
+    private function execAction()
     {
         foreach ($this->actionList as $action => $values) {
-            if ($action != $option) {
+            if ($action != $this->option) {
                 continue;
             }
 
