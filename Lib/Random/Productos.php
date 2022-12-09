@@ -16,9 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Model\ProductoImagen;
+use FacturaScripts\Dinamic\Model\AttachedFile;
 use FacturaScripts\Dinamic\Model\Producto;
 use FacturaScripts\Dinamic\Model\Variante;
 use Faker;
@@ -72,6 +75,8 @@ class Productos extends NewItems
                 $max--;
             }
 
+            static::setImages($product);
+
             $product->loadFromCode($product->idproducto);
             $product->actualizado = $faker->dateTime();
             $product->save();
@@ -121,6 +126,13 @@ class Productos extends NewItems
         return $newVar;
     }
 
+    private static function getRandomImage(): string
+    {
+        // obtenemos una imagen aleatoria de la carpeta de imágenes
+        $images = glob(FS_FOLDER . '/Plugins/Randomizer/Assets/Images/*');
+        return $images[mt_rand(0, count($images) - 1)];
+    }
+
     /**
      * 
      * @param Faker\Generator $faker
@@ -167,6 +179,65 @@ class Productos extends NewItems
         $variante = new Variante();
         $where = [new DataBaseWhere('referencia', $ref)];
         return $variante->loadFromCode('', $where) ? 'REF' . \mt_rand(1, 999999999) : $ref;
+    }
+
+    private static function setImageAttachedFile(string $filePath): AttachedFile
+    {
+        $fileName = basename($filePath);
+
+        // buscamos si existe la imagen guardada en la biblioteca
+        $file = new AttachedFile();
+        $where = [new DataBaseWhere('filename', $fileName)];
+        if ($file->loadFromCode('', $where)) {
+            return $file;
+        }
+
+        // copiamos la imagen a la carpeta MyFiles
+        if (false === copy($filePath, FS_FOLDER . '/MyFiles/' . $fileName)) {
+            return $file;
+        }
+
+        // si no existe, guardamos la imagen en la biblioteca
+        $file = new AttachedFile();
+        $file->path = $fileName;
+        $file->save();
+        return $file;
+    }
+
+    private static function setImageProduct(int $idfile, int $idproducto, ?string $referencia = null)
+    {
+        $imageProducto = new ProductoImagen();
+        $imageProducto->idfile = $idfile;
+        $imageProducto->idproducto = $idproducto;
+        $imageProducto->referencia = $referencia;
+        $imageProducto->save();
+    }
+
+    private static function setImages(Producto $product)
+    {
+        // añadimos las imágenes del producto sin variantes
+        $maxImgProduct = mt_rand(0, 3);
+        for ($i = 0; $i < $maxImgProduct; $i++) {
+            $filePath = static::getRandomImage();
+            $file = static::setImageAttachedFile($filePath);
+            if (false === $file->exists()) {
+                continue;
+            }
+            static::setImageProduct($file->idfile, $product->idproducto);
+        }
+
+        // añadimos las imágenes de las variantes
+        foreach ($product->getVariants() as $variant) {
+            $maxImgVariant = mt_rand(0, 3);
+            for ($i = 0; $i < $maxImgVariant; $i++) {
+                $filePath = static::getRandomImage();
+                $file = static::setImageAttachedFile($filePath);
+                if (false === $file->exists()) {
+                    continue;
+                }
+                static::setImageProduct($file->idfile, $product->idproducto, $variant->referencia);
+            }
+        }
     }
 
     /**
