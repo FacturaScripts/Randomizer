@@ -82,7 +82,7 @@ class Randomizer extends Base\Controller
      *
      * @return array
      */
-    public function getPageData()
+    public function getPageData(): array
     {
         $pageData = parent::getPageData();
         $pageData['menu'] = 'admin';
