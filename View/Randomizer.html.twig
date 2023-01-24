@@ -9,20 +9,24 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <h1 class="h3 mb-5">
-                            <i class="{{ fsc.getPagedata().icon }}"
-                               aria-hidden="true"></i> {{ i18n.trans('generate-test-data') }}
-                            <a href="{{ fsc.url() }}" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-sync" aria-hidden="true"></i>
-                            </a>
+                            <i class="{{ fsc.getPageData().icon }}" aria-hidden="true"></i>
+                            {{ trans('generate-test-data') }}
+                            {% if fsc.option %}
+                                <a href="{{ fsc.url() }}" class="btn btn-sm btn-warning">{{ trans('cancel') }}</a>
+                            {% else %}
+                                <a href="{{ fsc.url() }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-sync" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
                         </h1>
                         {% for title, group in fsc.buttonList %}
                             {% if title %}
-                                <h3 class="mt-4">{{ i18n.trans(title) }}</h3>
+                                <h3 class="mt-4">{{ trans(title) }}</h3>
                                 <hr/>
                             {% endif %}
                             <div class="form-row">
                                 {% for item in group %}
-                                    {{ _self.genButton(fsc, item.action, i18n, item.icon, item.label) }}
+                                    {{ _self.genButton(fsc, item.action, item.icon, item.label) }}
                                 {% endfor %}
                             </div>
                         {% endfor %}
@@ -33,10 +37,16 @@
     </div>
 {% endblock %}
 
-{% macro genButton(fsc, gen, i18n, icon, label) %}
+{% macro genButton(fsc, gen, icon, label) %}
     <div class="col-sm-4">
-        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block btn-outline-success mb-3">
-            <i class="{{ icon }}" aria-hidden="true"></i>&nbsp; {{ i18n.trans(label) }}
+        {% set cssColor = gen == fsc.option ? 'btn-success' : 'btn-outline-success' %}
+        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block {{ cssColor }} mb-3">
+            {% if gen == fsc.option %}
+                <i class="fas fa-cog fa-spin mr-1" aria-hidden="true"></i>
+            {% else %}
+                <i class="{{ icon }} mr-1" aria-hidden="true"></i>
+            {% endif %}
+            {{ trans(label) }}
             {% if fsc.totalCounter[gen] > 0 %}
                 <span class="badge badge-success">{{ fsc.totalCounter[gen] }}</span>
             {% endif %}

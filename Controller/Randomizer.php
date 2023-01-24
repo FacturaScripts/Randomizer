@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2017-2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2017-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Controller;
 
 use FacturaScripts\Core\Base;
@@ -31,38 +32,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Randomizer extends Base\Controller
 {
-
-    /**
-     * Contains the total quantity for each model.
-     *
-     * @var array
-     */
-    public $totalCounter = [];
-
-    /**
-     *
-     * @var array
-     */
-    public $buttonList = [];
-
-    /**
-     *
-     * @var array
-     */
+    /** @var array */
     private $actionList = [];
 
-    /**
-     * Add a new button into group, for generate ramdom data.
-     *
-     * @param string $group
-     * @param string $action
-     * @param string $actionLabel
-     * @param string $buttonLabel
-     * @param string $buttonIcon
-     * @param string $randomClass
-     * @param string $modelClass
-     */
-    public function addButton($group, $action, $actionLabel, $buttonLabel, $buttonIcon, $randomClass, $modelClass)
+    /** @var array */
+    public $buttonList = [];
+
+    /** @var string */
+    public $option;
+
+    /** @var array */
+    public $totalCounter = [];
+
+    public function addButton(string $group, string $action, string $actionLabel, string $buttonLabel, string $buttonIcon, string $randomClass, string $modelClass): void
     {
         $this->buttonList[$group][] = [
             'action' => $action,
@@ -77,11 +59,6 @@ class Randomizer extends Base\Controller
         ];
     }
 
-    /**
-     * Returns basic page attributes
-     *
-     * @return array
-     */
     public function getPageData(): array
     {
         $pageData = parent::getPageData();
@@ -94,8 +71,8 @@ class Randomizer extends Base\Controller
     /**
      * Runs the controller's private logic.
      *
-     * @param Response                   $response
-     * @param User                       $user
+     * @param Response $response
+     * @param User $user
      * @param Base\ControllerPermissions $permissions
      */
     public function privateCore(&$response, $user, $permissions)
@@ -109,15 +86,10 @@ class Randomizer extends Base\Controller
             $this->redirect($this->url() . '?gen=' . $option, 5);
         }
 
-        $this->getTotals();
+        $this->setTotals();
     }
 
-    /**
-     * Executes selected action.
-     *
-     * @param string $option
-     */
-    private function execAction($option)
+    private function execAction(string $option): void
     {
         foreach ($this->actionList as $action => $values) {
             if ($action != $option) {
@@ -125,40 +97,18 @@ class Randomizer extends Base\Controller
             }
 
             $itemClass = $values['items'];
-            if (\class_exists($itemClass)) {
+            if (class_exists($itemClass)) {
+                $this->option = $option;
                 $this->generateAction($values['label'], $itemClass::create());
             }
             break;
         }
     }
 
-    /**
-     *
-     * @param string $label
-     * @param int    $number
-     */
-    private function generateAction(string $label, int $number)
+    private function generateAction(string $label, int $number): void
     {
         $this->toolBox()->i18nLog()->notice($label, ['%quantity%' => $number]);
         $this->toolBox()->i18nLog()->notice('randomizer-generating-more-items');
-        return true;
-    }
-
-    /**
-     * Set totalCounter key for each model.
-     */
-    private function getTotals()
-    {
-        foreach ($this->actionList as $tag => $values) {
-            $modelName = $values['model'];
-            if (false === \class_exists($modelName)) {
-                $this->totalCounter[$tag] = 0;
-                continue;
-            }
-
-            $model = new $modelName();
-            $this->totalCounter[$tag] = $model->count();
-        }
     }
 
     private function loadButtons()
@@ -188,5 +138,22 @@ class Randomizer extends Base\Controller
         $this->addButton('sales', 'albaranescli', 'generated-customer-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesClientes', 'AlbaranCliente');
 
         $this->pipe('loadButtons');
+    }
+
+    /**
+     * Set totalCounter key for each model.
+     */
+    private function setTotals()
+    {
+        foreach ($this->actionList as $tag => $values) {
+            $modelName = $values['model'];
+            if (false === class_exists($modelName)) {
+                $this->totalCounter[$tag] = 0;
+                continue;
+            }
+
+            $model = new $modelName();
+            $this->totalCounter[$tag] = $model->count();
+        }
     }
 }
