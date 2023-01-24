@@ -31,17 +31,11 @@
             </div>
         </div>
     </div>
-
-    <script>
-        {% if fsc.option is not empty %}
-            animateSpinner('add');
-        {% endif %}
-    </script>
 {% endblock %}
 
 {% macro genButton(fsc, gen, i18n, icon, label) %}
     <div class="col-sm-4">
-        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block btn-outline-success mb-3 btn-spin-action" onclick="animateSpinner('add')">
+        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block btn-outline-success mb-3">
             <i class="{{ icon }}" aria-hidden="true"></i>&nbsp; {{ i18n.trans(label) }}
             {% if fsc.totalCounter[gen] > 0 %}
                 <span class="badge badge-success">{{ fsc.totalCounter[gen] }}</span>
