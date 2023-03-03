@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -39,7 +39,6 @@ use Faker\Generator;
  */
 abstract class NewItems
 {
-
     use ComercialContactTrait,
         ProductosTrait;
 
@@ -209,10 +208,7 @@ abstract class NewItems
         return mt_rand(0, 1) === 0 ? self::$payments[0]->codpago : AppSettings::get('default', 'codpago');
     }
 
-    /**
-     * @return string
-     */
-    protected static function codretencion()
+    protected static function codretencion(): ?string
     {
         if (null === self::$retentions) {
             $retention = new Retencion();
@@ -220,30 +216,29 @@ abstract class NewItems
         }
 
         shuffle(self::$retentions);
-        return mt_rand(0, 2) === 0 ? self::$retentions[0]->codretencion : AppSettings::get('default', 'codretencion');
+        return mt_rand(0, 2) === 0 && count(self::$retentions) > 0 ?
+            self::$retentions[0]->codretencion :
+            AppSettings::get('default', 'codretencion');
     }
 
-    /**
-     * @return string
-     */
-    protected static function codserie()
+    protected static function codserie(): ?string
     {
         if (null === self::$series) {
             $serie = new Serie();
-            $where = [
-                new DataBaseWhere('codserie', AppSettings::get('default', 'codserierec'), '<>'),
-            ];
-            self::$series = $serie->all($where);
+            $codserieRec = AppSettings::get('default', 'codserierec');
+            $where = [new DataBaseWhere('codserie', $codserieRec, '!=')];
+            self::$series = empty($codserieRec) ?
+                $serie->all() :
+                $serie->all($where);
         }
 
         shuffle(self::$series);
-        return mt_rand(0, 1) === 0 ? self::$series[0]->codserie : AppSettings::get('default', 'codserie');
+        return mt_rand(0, 1) === 0 && count(self::$series) > 0 ?
+            self::$series[0]->codserie :
+            AppSettings::get('default', 'codserie');
     }
 
-    /**
-     * @return string
-     */
-    protected static function codtarifa()
+    protected static function codtarifa(): ?string
     {
         if (null === self::$rates) {
             $tarifa = new Tarifa();
