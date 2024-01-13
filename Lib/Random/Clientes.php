@@ -50,17 +50,17 @@ class Clientes extends NewItems
             $cliente->codpago = static::codpago();
             $cliente->codretencion = static::codretencion();
             $cliente->codserie = static::codserie();
-            $cliente->email = $faker->optional()->email;
-            $cliente->fax = $faker->optional(0.1)->phoneNumber;
+            $cliente->email = $faker->optional()->email();
+            $cliente->fax = $faker->optional(0.1)->phoneNumber();
             $cliente->fechaalta = $faker->date();
             $cliente->fechabaja = $faker->optional(0.1)->date();
             $cliente->nombre = $faker->name();
             $cliente->observaciones = $faker->optional()->paragraph();
             $cliente->personafisica = $faker->boolean();
-            $cliente->razonsocial = $faker->optional()->company;
+            $cliente->razonsocial = $faker->optional()->company();
             $cliente->regimeniva = static::regimenIVA();
-            $cliente->telefono1 = $faker->optional()->phoneNumber;
-            $cliente->telefono2 = $faker->optional()->phoneNumber;
+            $cliente->telefono1 = $faker->optional()->phoneNumber();
+            $cliente->telefono2 = $faker->optional()->phoneNumber();
             $cliente->web = static::web($faker);
 
             if ($cliente->exists()) {
@@ -89,9 +89,9 @@ class Clientes extends NewItems
         $max = $faker->numberBetween(-1, 5);
         for ($index = 1; $index <= $max; $index++) {
             $bank = new CuentaBancoCliente();
-            $bank->descripcion = \implode(' ', $faker->words);
+            $bank->descripcion = implode(' ', $faker->words());
             $bank->iban = $faker->iban('ES');
-            $bank->swift = $faker->optional()->swiftBicNumber;
+            $bank->swift = $faker->optional()->swiftBicNumber();
             $bank->codcliente = $codcliente;
             $bank->principal = ($index === 1);
             $bank->fmandato = $faker->date();

@@ -49,7 +49,7 @@ class Usuarios extends NewItems
 
         for ($generated = 0; $generated < $number; $generated++) {
             $user = new User();
-            $user->nick = $faker->email;
+            $user->nick = $faker->email();
             if ($user->exists()) {
                 continue;
             }
@@ -61,7 +61,7 @@ class Usuarios extends NewItems
             $user->email = $user->nick;
             $user->enabled = $faker->boolean(90);
             $user->lastactivity = $faker->date();
-            $user->lastip = $faker->optional()->ipv4;
+            $user->lastip = $faker->optional()->ipv4();
             $user->newPassword = $user->newPassword2 = $faker->password();
 
             if (false === $user->save()) {

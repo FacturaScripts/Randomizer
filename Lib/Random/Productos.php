@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -34,18 +34,11 @@ use Faker;
  */
 class Productos extends NewItems
 {
-
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
-        $maxCost = \mt_rand(0, 19) > 0 ? $faker->randomFloat(3, 0.01, 49) : $faker->numberBetween(1, 499);
-        $maxPrice = \mt_rand(0, 19) > 0 ? $faker->randomFloat(3, 0.01, 99) : $faker->numberBetween(1, 1999);
+        $maxCost = mt_rand(0, 19) > 0 ? $faker->randomFloat(3, 0.01, 49) : $faker->numberBetween(1, 499);
+        $maxPrice = mt_rand(0, 19) > 0 ? $faker->randomFloat(3, 0.01, 99) : $faker->numberBetween(1, 1999);
 
         static::dataBase()->beginTransaction();
         for ($generated = 0; $generated < $number; $generated++) {
@@ -63,8 +56,8 @@ class Productos extends NewItems
                 $variant->save();
             }
 
-            $max = \mt_rand(-9, 9);
-            $withAttr = \mt_rand(0, 4) === 0;
+            $max = mt_rand(-9, 9);
+            $withAttr = mt_rand(0, 4) === 0;
             while ($max > 0) {
                 $variant = static::getNewVariant($faker, $product->idproducto);
                 static::setVariantData($faker, $variant, $maxCost, $maxPrice);
@@ -87,7 +80,6 @@ class Productos extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
      *
      * @return Producto
@@ -99,7 +91,7 @@ class Productos extends NewItems
         $product->codfabricante = static::codfabricante();
         $product->codfamilia = static::codfamilia();
         $product->codimpuesto = static::codimpuesto();
-        $product->descripcion = $faker->paragraph;
+        $product->descripcion = $faker->paragraph();
         $product->fechaalta = $faker->date();
         $product->nostock = $faker->boolean(10);
         $product->observaciones = $faker->optional()->text(500);
@@ -112,9 +104,8 @@ class Productos extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
-     * @param int             $idproduct
+     * @param int $idproduct
      *
      * @return Variante
      */
@@ -134,51 +125,50 @@ class Productos extends NewItems
     }
 
     /**
-     * 
      * @param Faker\Generator $faker
      *
      * @return string
      */
     private static function newReferencia($faker)
     {
-        $option = \mt_rand(0, 9);
+        $option = mt_rand(0, 9);
         switch ($option) {
             default:
                 $ref = static::code(20);
                 break;
 
             case 1:
-                $ref = $faker->isbn10;
+                $ref = $faker->isbn10();
                 break;
 
             case 2:
-                $ref = $faker->isbn13;
+                $ref = $faker->isbn13();
                 break;
 
             case 3:
-                $ref = $faker->ean8;
+                $ref = $faker->ean8();
                 break;
 
             case 4:
-                $ref = $faker->ean13;
+                $ref = $faker->ean13();
                 break;
 
             case 5:
-                $ref = $faker->domainName;
+                $ref = $faker->domainName();
                 break;
 
             case 6:
-                $ref = $faker->word . \mt_rand(1, 99999999);
+                $ref = $faker->word() . mt_rand(1, 99999999);
                 break;
 
             case 7:
-                $ref = \mt_rand(1, 99999999) . $faker->word;
+                $ref = mt_rand(1, 99999999) . $faker->word();
                 break;
         }
 
         $variante = new Variante();
         $where = [new DataBaseWhere('referencia', $ref)];
-        return $variante->loadFromCode('', $where) ? 'REF' . \mt_rand(1, 999999999) : $ref;
+        return $variante->loadFromCode('', $where) ? 'REF' . mt_rand(1, 999999999) : $ref;
     }
 
     private static function setImageAttachedFile(string $filePath): AttachedFile
@@ -261,11 +251,10 @@ class Productos extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
-     * @param Variante        $variant
-     * @param float           $maxCost
-     * @param float           $maxPrice
+     * @param Variante $variant
+     * @param float $maxCost
+     * @param float $maxPrice
      */
     private static function setVariantData(&$faker, &$variant, $maxCost, $maxPrice)
     {

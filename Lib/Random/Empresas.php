@@ -43,24 +43,24 @@ class Empresas extends NewItems
         for ($generated = 0; $generated < $number; $generated++) {
             $empresa = new Empresa();
             $empresa->administrador = $faker->optional()->name();
-            $empresa->apartado = $faker->optional(0.1)->postcode;
+            $empresa->apartado = $faker->optional(0.1)->postcode();
             $empresa->cifnif = static::cifnif();
-            $empresa->ciudad = $faker->optional(0.7)->city;
+            $empresa->ciudad = $faker->optional(0.7)->city();
             $empresa->codpais = static::codpais();
-            $empresa->codpostal = $faker->optional()->postcode;
-            $empresa->direccion = $faker->optional()->address;
-            $empresa->email = $faker->optional()->email;
-            $empresa->fax = $faker->optional(0.1)->phoneNumber;
+            $empresa->codpostal = $faker->optional()->postcode();
+            $empresa->direccion = $faker->optional()->address();
+            $empresa->email = $faker->optional()->email();
+            $empresa->fax = $faker->optional(0.1)->phoneNumber();
             $empresa->fechaalta = $faker->optional()->date();
             $empresa->nombre = $faker->name();
             $empresa->nombrecorto = $faker->optional(0.5, $empresa->nombre)->firstName();
             $empresa->observaciones = $faker->optional()->paragraph();
             $empresa->personafisica = $faker->boolean();
-            $empresa->provincia = $faker->optional()->state;
+            $empresa->provincia = $faker->optional()->state();
             $empresa->regimeniva = static::regimenIVA();
-            $empresa->telefono1 = $faker->optional()->phoneNumber;
-            $empresa->telefono2 = $faker->optional()->phoneNumber;
-            $empresa->web = $faker->optional()->url;
+            $empresa->telefono1 = $faker->optional()->phoneNumber();
+            $empresa->telefono2 = $faker->optional()->phoneNumber();
+            $empresa->web = $faker->optional()->url();
 
             if ($empresa->exists()) {
                 continue;

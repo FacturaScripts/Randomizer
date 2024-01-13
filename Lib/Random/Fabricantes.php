@@ -42,7 +42,7 @@ class Fabricantes extends NewItems
         for ($generated = 0; $generated < $number; $generated++) {
             $fabricante = new Fabricante();
             $fabricante->codfabricante = static::codeOrNull(8);
-            $fabricante->nombre = $faker->company;
+            $fabricante->nombre = $faker->company();
 
             if ($fabricante->exists()) {
                 continue;

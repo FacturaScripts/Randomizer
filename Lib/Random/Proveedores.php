@@ -49,17 +49,17 @@ class Proveedores extends NewItems
             $proveedor->codpago = static::codpago();
             $proveedor->codretencion = static::codretencion();
             $proveedor->codserie = static::codserie();
-            $proveedor->email = $faker->optional()->email;
-            $proveedor->fax = $faker->optional(0.1)->phoneNumber;
+            $proveedor->email = $faker->optional()->email();
+            $proveedor->fax = $faker->optional(0.1)->phoneNumber();
             $proveedor->fechaalta = $faker->date();
             $proveedor->fechabaja = $faker->optional(0.1)->date();
             $proveedor->nombre = $faker->name();
             $proveedor->observaciones = $faker->optional()->paragraph();
             $proveedor->personafisica = $faker->boolean();
-            $proveedor->razonsocial = $faker->optional()->company;
+            $proveedor->razonsocial = $faker->optional()->company();
             $proveedor->regimeniva = static::regimenIVA();
-            $proveedor->telefono1 = $faker->optional()->phoneNumber;
-            $proveedor->telefono2 = $faker->optional()->phoneNumber;
+            $proveedor->telefono1 = $faker->optional()->phoneNumber();
+            $proveedor->telefono2 = $faker->optional()->phoneNumber();
             $proveedor->web = static::web($faker);
 
             if ($proveedor->exists()) {
@@ -88,9 +88,9 @@ class Proveedores extends NewItems
         $max = $faker->numberBetween(-1, 5);
         for ($index = 1; $index <= $max; $index++) {
             $bank = new CuentaBancoProveedor();
-            $bank->descripcion = \implode(' ', $faker->words);
+            $bank->descripcion = implode(' ', $faker->words());
             $bank->iban = $faker->iban('ES');
-            $bank->swift = $faker->optional()->swiftBicNumber;
+            $bank->swift = $faker->optional()->swiftBicNumber();
             $bank->codproveedor = $codproveedor;
             $bank->principal = ($index === 1);
             $bank->save();

@@ -327,7 +327,7 @@ abstract class NewItems
      */
     protected static function web(&$faker)
     {
-        $web = $faker->optional()->url;
+        $web = $faker->optional()->url();
         return strlen($web ?? '') > 100 ? substr($web, 0, 100) : $web;
     }
 }

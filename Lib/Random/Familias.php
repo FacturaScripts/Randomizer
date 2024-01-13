@@ -43,7 +43,7 @@ class Familias extends NewItems
         for ($generated = 0; $generated < $number; $generated++) {
             $familia = new Familia();
             $familia->codfamilia = static::codeOrNull(8);
-            $familia->descripcion = $faker->company;
+            $familia->descripcion = $faker->company();
             $familia->madre = \mt_rand(0, 3) === 0 ? $madre : null;
 
             if ($familia->exists()) {

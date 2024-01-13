@@ -43,7 +43,7 @@ class Atributos extends NewItems
 
         for ($generated = 0; $generated < $number; $generated++) {
             $atributo = new Atributo();
-            $atributo->nombre = \implode(' ', $faker->words);
+            $atributo->nombre = implode(' ', $faker->words());
 
             if ($atributo->exists()) {
                 continue;
@@ -71,7 +71,7 @@ class Atributos extends NewItems
             $value = new AtributoValor();
             $value->codatributo = $parent;
             $value->descripcion = $faker->name;
-            $value->valor = \implode(' ', $faker->words);
+            $value->valor = implode(' ', $faker->words());
             if (false === $value->save()) {
                 break;
             }

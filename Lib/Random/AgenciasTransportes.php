@@ -45,7 +45,7 @@ class AgenciasTransportes extends NewItems
             $agencia->activo = $faker->boolean();
             $agencia->codtrans = static::codeOrNull(8);
             $agencia->nombre = $faker->name();
-            $agencia->telefono = $faker->optional()->phoneNumber;
+            $agencia->telefono = $faker->optional()->phoneNumber();
             $agencia->web = static::web($faker);
 
             if ($agencia->exists()) {

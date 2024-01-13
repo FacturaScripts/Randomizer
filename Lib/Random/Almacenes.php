@@ -42,16 +42,16 @@ class Almacenes extends NewItems
 
         for ($generated = 0; $generated < $number; $generated++) {
             $almacen = new Almacen();
-            $almacen->apartado = $faker->optional(0.1)->postcode;
-            $almacen->ciudad = $faker->optional()->city;
+            $almacen->apartado = $faker->optional(0.1)->postcode();
+            $almacen->ciudad = $faker->optional()->city();
             $almacen->codalmacen = static::codeOrNull(4);
             $almacen->codpais = static::codpais();
-            $almacen->codpostal = $faker->optional()->postcode;
-            $almacen->direccion = $faker->optional()->address;
+            $almacen->codpostal = $faker->optional()->postcode();
+            $almacen->direccion = $faker->optional()->address();
             $almacen->idempresa = static::idempresa();
-            $almacen->nombre = $faker->company;
-            $almacen->provincia = $faker->optional()->state;
-            $almacen->telefono = $faker->optional()->phoneNumber;
+            $almacen->nombre = $faker->company();
+            $almacen->provincia = $faker->optional()->state();
+            $almacen->telefono = $faker->optional()->phoneNumber();
 
             if ($almacen->exists()) {
                 continue;
