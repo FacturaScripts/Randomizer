@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -32,7 +32,7 @@ class PedidosProveedores extends NewBusinessDocument
     public static function create(int $number = 25): int
     {
         $faker = Faker\Factory::create('es_ES');
-        $lineMultiplier = $faker->optional(0.3, 1)->numberBetween(2, 5);
+        $lineMultiplier = $faker->optional(0.3, 1)->numberBetween(2, 99);
 
         static::dataBase()->beginTransaction();
         for ($generated = 0; $generated < $number; $generated++) {
@@ -58,7 +58,7 @@ class PedidosProveedores extends NewBusinessDocument
                 break;
             }
 
-            static::createLines($faker, $doc, $faker->numberBetween(1, 999) * $lineMultiplier);
+            static::createLines($faker, $doc, $faker->numberBetween(1, 49) * $lineMultiplier);
             static::recalculate($doc);
         }
 

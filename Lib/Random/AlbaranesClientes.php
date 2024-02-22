@@ -32,7 +32,7 @@ class AlbaranesClientes extends NewBusinessDocument
     public static function create(int $number = 25): int
     {
         $faker = Faker\Factory::create('es_ES');
-        $lineMultiplier = $faker->optional(0.3, 1)->numberBetween(2, 10);
+        $lineMultiplier = $faker->optional(0.2, 1)->numberBetween(2, 99);
 
         static::dataBase()->beginTransaction();
         for ($generated = 0; $generated < $number; $generated++) {
@@ -61,7 +61,7 @@ class AlbaranesClientes extends NewBusinessDocument
                 break;
             }
 
-            static::createLines($faker, $doc, $faker->numberBetween(1, 499) * $lineMultiplier);
+            static::createLines($faker, $doc, $faker->numberBetween(1, 49) * $lineMultiplier);
             static::recalculate($doc);
         }
 
