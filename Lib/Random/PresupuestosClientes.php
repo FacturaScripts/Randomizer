@@ -60,7 +60,7 @@ class PresupuestosClientes extends NewBusinessDocument
                 break;
             }
 
-            static::createLines($faker, $doc, $faker->numberBetween(1, 20) * $lineMultiplier);
+            static::createLines($faker, $doc, $faker->numberBetween(1, 499) * $lineMultiplier);
             static::recalculate($doc);
         }
 

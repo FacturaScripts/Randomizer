@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Dinamic\Model\PresupuestoProveedor;
@@ -28,13 +29,6 @@ use Faker;
  */
 class PresupuestosProveedores extends NewBusinessDocument
 {
-
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 25): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -64,7 +58,7 @@ class PresupuestosProveedores extends NewBusinessDocument
                 break;
             }
 
-            static::createLines($faker, $doc, $faker->numberBetween(1, 40) * $lineMultiplier);
+            static::createLines($faker, $doc, $faker->numberBetween(1, 999) * $lineMultiplier);
             static::recalculate($doc);
         }
 
