@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -19,9 +19,9 @@
 
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
-use FacturaScripts\Core\App\AppSettings;
 use FacturaScripts\Core\Base\DataBase;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Tools;
 use FacturaScripts\Dinamic\Model\Empresa;
 use FacturaScripts\Dinamic\Model\FormaPago;
 use FacturaScripts\Dinamic\Model\Impuesto;
@@ -177,7 +177,7 @@ abstract class NewItems
         }
 
         shuffle(self::$taxes);
-        return mt_rand(0, 2) === 0 ? self::$taxes[0]->codimpuesto : AppSettings::get('default', 'codimpuesto');
+        return mt_rand(0, 2) === 0 ? self::$taxes[0]->codimpuesto : Tools::settings('default', 'codimpuesto');
     }
 
     /**
@@ -191,7 +191,7 @@ abstract class NewItems
         }
 
         shuffle(self::$countries);
-        return mt_rand(0, 3) === 0 ? self::$countries[0]->codpais : AppSettings::get('default', 'codpais');
+        return mt_rand(0, 3) === 0 ? self::$countries[0]->codpais : Tools::settings('default', 'codpais');
     }
 
     /**
@@ -205,7 +205,7 @@ abstract class NewItems
         }
 
         shuffle(self::$payments);
-        return mt_rand(0, 1) === 0 ? self::$payments[0]->codpago : AppSettings::get('default', 'codpago');
+        return mt_rand(0, 1) === 0 ? self::$payments[0]->codpago : Tools::settings('default', 'codpago');
     }
 
     protected static function codretencion(): ?string
@@ -218,14 +218,14 @@ abstract class NewItems
         shuffle(self::$retentions);
         return mt_rand(0, 2) === 0 && count(self::$retentions) > 0 ?
             self::$retentions[0]->codretencion :
-            AppSettings::get('default', 'codretencion');
+            Tools::settings('default', 'codretencion');
     }
 
     protected static function codserie(): ?string
     {
         if (null === self::$series) {
             $serie = new Serie();
-            $codserieRec = AppSettings::get('default', 'codserierec');
+            $codserieRec = Tools::settings('default', 'codserierec');
             $where = [new DataBaseWhere('codserie', $codserieRec, '!=')];
             self::$series = empty($codserieRec) ?
                 $serie->all() :
@@ -235,7 +235,7 @@ abstract class NewItems
         shuffle(self::$series);
         return mt_rand(0, 1) === 0 && count(self::$series) > 0 ?
             self::$series[0]->codserie :
-            AppSettings::get('default', 'codserie');
+            Tools::settings('default', 'codserie');
     }
 
     protected static function codtarifa(): ?string
@@ -267,7 +267,7 @@ abstract class NewItems
     protected static function fecha(): string
     {
         $days = mt_rand(0, 1999);
-        return date(Serie::DATE_STYLE, strtotime('-' . $days . ' days'));
+        return Tools::date('-' . $days . ' days');
     }
 
     /**
@@ -276,7 +276,7 @@ abstract class NewItems
     protected static function fechaHora(): string
     {
         $days = mt_rand(0, 1999);
-        return date(Serie::DATETIME_STYLE, strtotime('-' . $days . ' days'));
+        return Tools::dateTime('-' . $days . ' days');
     }
 
     /**
@@ -285,7 +285,7 @@ abstract class NewItems
     protected static function hora(): string
     {
         $minutes = mt_rand(0, 1429);
-        return date(Serie::HOUR_STYLE, strtotime('-' . $minutes . ' minutes'));
+        return Tools::hour('-' . $minutes . ' minutes');
     }
 
     /**
@@ -299,7 +299,7 @@ abstract class NewItems
         }
 
         shuffle(self::$companies);
-        return mt_rand(0, 2) === 0 ? self::$companies[0]->idempresa : AppSettings::get('default', 'idempresa');
+        return mt_rand(0, 2) === 0 ? self::$companies[0]->idempresa : Tools::settings('default', 'idempresa');
     }
 
     /**

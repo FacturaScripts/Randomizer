@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
-use FacturaScripts\Core\App\AppSettings;
+use FacturaScripts\Core\Tools;
 use FacturaScripts\Dinamic\Model\Almacen;
 use FacturaScripts\Dinamic\Model\AtributoValor;
 use FacturaScripts\Dinamic\Model\Fabricante;
@@ -33,7 +34,6 @@ use FacturaScripts\Dinamic\Model\Variante;
  */
 trait ProductosTrait
 {
-
     /**
      *
      * @var AtributoValor[]
@@ -75,8 +75,8 @@ trait ProductosTrait
             self::$attributes = $attribute->all();
         }
 
-        \shuffle(self::$attributes);
-        return empty(self::$attributes) || \mt_rand(0, 2) === 0 ? null : self::$attributes[0];
+        shuffle(self::$attributes);
+        return empty(self::$attributes) || mt_rand(0, 2) === 0 ? null : self::$attributes[0];
     }
 
     /**
@@ -90,8 +90,8 @@ trait ProductosTrait
             self::$warehouses = $warehouse->all();
         }
 
-        \shuffle(self::$warehouses);
-        return \mt_rand(0, 2) === 0 ? self::$warehouses[0]->codalmacen : AppSettings::get('default', 'codalmacen');
+        shuffle(self::$warehouses);
+        return mt_rand(0, 2) === 0 ? self::$warehouses[0]->codalmacen : Tools::settings('default', 'codalmacen');
     }
 
     /**
@@ -105,8 +105,8 @@ trait ProductosTrait
             self::$manufacturers = $manufacturer->all();
         }
 
-        \shuffle(self::$manufacturers);
-        return empty(self::$manufacturers) || \mt_rand(0, 3) === 0 ? null : self::$manufacturers[0]->codfabricante;
+        shuffle(self::$manufacturers);
+        return empty(self::$manufacturers) || mt_rand(0, 3) === 0 ? null : self::$manufacturers[0]->codfabricante;
     }
 
     /**
@@ -120,8 +120,8 @@ trait ProductosTrait
             self::$families = $family->all();
         }
 
-        \shuffle(self::$families);
-        return empty(self::$families) || \mt_rand(0, 3) === 0 ? null : self::$families[0]->codfamilia;
+        shuffle(self::$families);
+        return empty(self::$families) || mt_rand(0, 3) === 0 ? null : self::$families[0]->codfamilia;
     }
 
     /**
@@ -135,8 +135,8 @@ trait ProductosTrait
             self::$variants = $variant->all([], static::variantOrder(), 0, 200);
         }
 
-        \shuffle(self::$variants);
-        return empty(self::$variants) || \mt_rand(0, 2) === 0 ? null : self::$variants[0]->idproducto;
+        shuffle(self::$variants);
+        return empty(self::$variants) || mt_rand(0, 2) === 0 ? null : self::$variants[0]->idproducto;
     }
 
     /**
@@ -150,21 +150,21 @@ trait ProductosTrait
             self::$variants = $variant->all([], static::variantOrder(), 0, 200);
         }
 
-        \shuffle(self::$variants);
-        return empty(self::$variants) || \mt_rand(0, 2) === 0 ? null : self::$variants[0]->referencia;
+        shuffle(self::$variants);
+        return empty(self::$variants) || mt_rand(0, 2) === 0 ? null : self::$variants[0]->referencia;
     }
 
     /**
-     * 
+     *
      * @return array
      */
     private static function variantOrder(): array
     {
         $fields = ['codbarras', 'coste', 'idproducto', 'idvariante', 'precio', 'referencia'];
-        \shuffle($fields);
+        shuffle($fields);
 
         $options = ['ASC', 'DESC'];
-        \shuffle($options);
+        shuffle($options);
 
         return [$fields[0] => $options[0]];
     }

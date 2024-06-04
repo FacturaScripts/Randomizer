@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2017-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2017-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\Randomizer\Controller;
 
 use FacturaScripts\Core\Base;
 use FacturaScripts\Core\Model\User;
+use FacturaScripts\Core\Tools;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -107,8 +108,8 @@ class Randomizer extends Base\Controller
 
     private function generateAction(string $label, int $number): void
     {
-        $this->toolBox()->i18nLog()->notice($label, ['%quantity%' => $number]);
-        $this->toolBox()->i18nLog()->notice('randomizer-generating-more-items');
+        Tools::log()->notice($label, ['%quantity%' => $number]);
+        Tools::log()->notice('randomizer-generating-more-items');
     }
 
     private function loadButtons()
@@ -132,7 +133,7 @@ class Randomizer extends Base\Controller
         /// TODO: añadir tarifas
         $this->addButton('sales', 'grupos', 'generated-customer-groups', 'customer-groups', 'fas fa-users-cog', 'Random\\GruposClientes', 'GrupoClientes');
         $this->addButton('sales', 'clientes', 'generated-customers', 'customers', 'fas fa-users', 'Random\\Clientes', 'Cliente');
-        if(class_exists(\FacturaScripts\Dinamic\Model\Comision::class)) $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fas fa-percentage', 'Random\\Comisiones', 'Comision');
+        if (class_exists(\FacturaScripts\Dinamic\Model\Comision::class)) $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fas fa-percentage', 'Random\\Comisiones', 'Comision');
         $this->addButton('sales', 'presupuestoscli', 'generated-customer-estimations', 'estimations', 'fas fa-copy', 'Random\\PresupuestosClientes', 'PresupuestoCliente');
         $this->addButton('sales', 'pedidoscli', 'generated-customer-orders', 'orders', 'fas fa-copy', 'Random\\PedidosClientes', 'PedidoCliente');
         $this->addButton('sales', 'albaranescli', 'generated-customer-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesClientes', 'AlbaranCliente');
