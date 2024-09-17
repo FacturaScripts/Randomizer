@@ -226,10 +226,13 @@ abstract class NewItems
         if (null === self::$series) {
             $serie = new Serie();
             $codserieRec = Tools::settings('default', 'codserierec');
-            $where = [new DataBaseWhere('codserie', $codserieRec, '!=')];
-            self::$series = empty($codserieRec) ?
-                $serie->all() :
-                $serie->all($where);
+            $where = [new DataBaseWhere('tipo', 'R', '!=')];
+
+            if (false === empty($codserieRec)) {
+                $where[] = new DataBaseWhere('codserie', $codserieRec, '!=');
+            }
+
+            self::$series = $serie->all($where);
         }
 
         shuffle(self::$series);
