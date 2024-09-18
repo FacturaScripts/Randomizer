@@ -16,10 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
-use FacturaScripts\Dinamic\Model\CuentaBancoProveedor;
 use FacturaScripts\Dinamic\Model\Contacto;
+use FacturaScripts\Dinamic\Model\CuentaBancoProveedor;
 use FacturaScripts\Dinamic\Model\Proveedor;
 use Faker;
 
@@ -81,7 +82,7 @@ class Proveedores extends NewItems
     /**
      *
      * @param Faker\Generator $faker
-     * @param string          $codproveedor
+     * @param string $codproveedor
      */
     private static function createBankAccounts(&$faker, $codproveedor)
     {
@@ -100,7 +101,7 @@ class Proveedores extends NewItems
     /**
      *
      * @param Faker\Generator $faker
-     * @param string          $codproveedor
+     * @param string $codproveedor
      */
     private static function createContacts(&$faker, $codproveedor)
     {

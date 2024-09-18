@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Dinamic\Model\Contacto;
@@ -58,7 +59,7 @@ class Contactos extends NewItems
     /**
      *
      * @param Faker\Generator $faker
-     * @param Contacto        $contact
+     * @param Contacto $contact
      */
     public static function setContactData(&$faker, &$contact)
     {

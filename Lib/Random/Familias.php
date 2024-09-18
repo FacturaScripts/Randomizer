@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Dinamic\Model\Familia;
 use Faker;
+use function mt_rand;
 
 /**
  * Description of Familias
@@ -30,7 +32,7 @@ class Familias extends NewItems
 {
 
     /**
-     * 
+     *
      * @param int $number
      *
      * @return int
@@ -44,7 +46,7 @@ class Familias extends NewItems
             $familia = new Familia();
             $familia->codfamilia = static::codeOrNull(8);
             $familia->descripcion = $faker->company();
-            $familia->madre = \mt_rand(0, 3) === 0 ? $madre : null;
+            $familia->madre = mt_rand(0, 3) === 0 ? $madre : null;
 
             if ($familia->exists()) {
                 continue;

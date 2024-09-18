@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Base\Calculator;
@@ -23,6 +24,8 @@ use FacturaScripts\Core\Model\Base\BusinessDocument;
 use FacturaScripts\Core\Model\Base\BusinessDocumentLine;
 use FacturaScripts\Dinamic\Model\AgenciaTransporte;
 use Faker;
+use function mt_rand;
+use function shuffle;
 
 /**
  * Set of methods common to the different Business Documents.
@@ -34,13 +37,13 @@ abstract class NewBusinessDocument extends NewItems
 {
 
     /**
-     * 
+     *
      * @var AgenciaTransporte[]
      */
     private static $agenciastrans = null;
 
     /**
-     * 
+     *
      * @return string
      */
     protected static function codtrans()
@@ -50,16 +53,16 @@ abstract class NewBusinessDocument extends NewItems
             self::$agenciastrans = $agencia->all();
         }
 
-        \shuffle(self::$agenciastrans);
-        return empty(self::$agenciastrans) || \mt_rand(0, 2) > 0 ? null : self::$agenciastrans[0]->codtrans;
+        shuffle(self::$agenciastrans);
+        return empty(self::$agenciastrans) || mt_rand(0, 2) > 0 ? null : self::$agenciastrans[0]->codtrans;
     }
 
     /**
      * Add a number of lines to the indicated document.
      *
-     * @param Faker\Generator  $faker
+     * @param Faker\Generator $faker
      * @param BusinessDocument $document
-     * @param int              $numLines
+     * @param int $numLines
      */
     protected static function createLines(&$faker, &$document, int $numLines = 1)
     {
@@ -84,7 +87,7 @@ abstract class NewBusinessDocument extends NewItems
     }
 
     /**
-     * @param Faker\Generator  $faker
+     * @param Faker\Generator $faker
      * @param BusinessDocument $document
      *
      * @return BusinessDocumentLine

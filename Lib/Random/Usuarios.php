@@ -16,12 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Dinamic\Model\Role;
 use FacturaScripts\Dinamic\Model\RoleUser;
 use FacturaScripts\Dinamic\Model\User;
 use Faker;
+use function count;
+use function shuffle;
 
 /**
  * Description of Usuarios
@@ -77,7 +80,7 @@ class Usuarios extends NewItems
     }
 
     /**
-     * 
+     *
      * @param User $user
      */
     private static function setRole($user)
@@ -87,11 +90,11 @@ class Usuarios extends NewItems
             self::$roles = $role->all();
         }
 
-        if (\count(self::$roles) <= 1) {
+        if (count(self::$roles) <= 1) {
             return;
         }
 
-        \shuffle(self::$roles);
+        shuffle(self::$roles);
         foreach (self::$roles as $role) {
             $roleUser = new RoleUser();
             $roleUser->codrole = $role->codrole;
