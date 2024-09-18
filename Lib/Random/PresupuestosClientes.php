@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
+use FacturaScripts\Core\Base\Calculator;
 use FacturaScripts\Dinamic\Model\PresupuestoCliente;
 use Faker;
 
@@ -29,13 +30,15 @@ use Faker;
  */
 class PresupuestosClientes extends NewBusinessDocument
 {
-    public static function create(int $number = 25): int
+    public static function create(int $number = 10): int
     {
         $faker = Faker\Factory::create('es_ES');
         $lineMultiplier = $faker->optional(0.2, 1)->numberBetween(2, 99);
 
         static::dataBase()->beginTransaction();
+
         for ($generated = 0; $generated < $number; $generated++) {
+
             $doc = new PresupuestoCliente();
             $doc->setSubject(static::cliente());
             $doc->codagente = static::codagente();
@@ -52,19 +55,22 @@ class PresupuestosClientes extends NewBusinessDocument
             $doc->numero2 = static::referencia();
             $doc->observaciones = $faker->optional()->text();
 
-            if ($doc->exists()) {
-                continue;
-            }
-
             if (false === $doc->save()) {
-                break;
+                static::dataBase()->rollback();
+
+                return $generated;
             }
 
-            static::createLines($faker, $doc, $faker->numberBetween(1, 49) * $lineMultiplier);
-            static::recalculate($doc);
+            $lines = static::createLines($faker, $doc, $faker->numberBetween(1, 49) * $lineMultiplier);
+            if (false === Calculator::calculate($doc, $lines, true)) {
+                static::dataBase()->rollback();
+
+                return $generated;
+            }
         }
 
         static::dataBase()->commit();
+
         return $generated;
     }
 }

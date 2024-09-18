@@ -22,6 +22,7 @@ namespace FacturaScripts\Plugins\Randomizer\Controller;
 use FacturaScripts\Core\Base;
 use FacturaScripts\Core\Model\User;
 use FacturaScripts\Core\Tools;
+use FacturaScripts\Dinamic\Model\Comision;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -62,11 +63,11 @@ class Randomizer extends Base\Controller
 
     public function getPageData(): array
     {
-        $pageData = parent::getPageData();
-        $pageData['menu'] = 'admin';
-        $pageData['title'] = 'generate-test-data';
-        $pageData['icon'] = 'fas fa-flask';
-        return $pageData;
+        $data = parent::getPageData();
+        $data['menu'] = 'admin';
+        $data['title'] = 'generate-test-data';
+        $data['icon'] = 'fas fa-flask';
+        return $data;
     }
 
     /**
@@ -81,10 +82,11 @@ class Randomizer extends Base\Controller
         parent::privateCore($response, $user, $permissions);
 
         $this->loadButtons();
+
         $option = $this->request->get('gen', '');
         if ($option !== '') {
             $this->execAction($option);
-            $this->redirect($this->url() . '?gen=' . $option, 5);
+            $this->redirect($this->url() . '?gen=' . $option, 3);
         }
 
         $this->setTotals();
@@ -112,7 +114,7 @@ class Randomizer extends Base\Controller
         Tools::log()->notice('randomizer-generating-more-items');
     }
 
-    private function loadButtons()
+    private function loadButtons(): void
     {
         $this->addButton('', 'empresas', 'generated-companies', 'companies', 'fas fa-building', 'Random\\Empresas', 'Empresa');
         $this->addButton('', 'almacenes', 'generated-warehouses', 'warehouses', 'fas fa-warehouse', 'Random\\Almacenes', 'Almacen');
@@ -130,10 +132,13 @@ class Randomizer extends Base\Controller
         $this->addButton('purchases', 'pedidosprov', 'generated-supplier-orders', 'orders', 'fas fa-copy', 'Random\\PedidosProveedores', 'PedidoProveedor');
         $this->addButton('purchases', 'albaranesprov', 'generated-supplier-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesProveedores', 'AlbaranProveedor');
 
-        /// TODO: añadir tarifas
         $this->addButton('sales', 'grupos', 'generated-customer-groups', 'customer-groups', 'fas fa-users-cog', 'Random\\GruposClientes', 'GrupoClientes');
         $this->addButton('sales', 'clientes', 'generated-customers', 'customers', 'fas fa-users', 'Random\\Clientes', 'Cliente');
-        if (class_exists(\FacturaScripts\Dinamic\Model\Comision::class)) $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fas fa-percentage', 'Random\\Comisiones', 'Comision');
+
+        if (class_exists(Comision::class)) {
+            $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fas fa-percentage', 'Random\\Comisiones', 'Comision');
+        }
+
         $this->addButton('sales', 'presupuestoscli', 'generated-customer-estimations', 'estimations', 'fas fa-copy', 'Random\\PresupuestosClientes', 'PresupuestoCliente');
         $this->addButton('sales', 'pedidoscli', 'generated-customer-orders', 'orders', 'fas fa-copy', 'Random\\PedidosClientes', 'PedidoCliente');
         $this->addButton('sales', 'albaranescli', 'generated-customer-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesClientes', 'AlbaranCliente');
@@ -144,7 +149,7 @@ class Randomizer extends Base\Controller
     /**
      * Set totalCounter key for each model.
      */
-    private function setTotals()
+    private function setTotals(): void
     {
         foreach ($this->actionList as $tag => $values) {
             $modelName = $values['model'];
