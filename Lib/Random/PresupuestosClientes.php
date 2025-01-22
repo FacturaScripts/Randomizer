@@ -33,7 +33,7 @@ class PresupuestosClientes extends NewBusinessDocument
     public static function create(int $number = 10): int
     {
         $faker = Faker\Factory::create('es_ES');
-        $lineMultiplier = $faker->optional(0.2, 1)->numberBetween(2, 99);
+        $lineMultiplier = $faker->optional(0.1, 1)->numberBetween(2, 99);
 
         static::dataBase()->beginTransaction();
 
