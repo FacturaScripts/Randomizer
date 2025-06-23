@@ -1,0 +1,35 @@
+<?php
+
+namespace FacturaScripts\Test\Plugins;
+
+use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
+use FacturaScripts\Test\Traits\LogErrorsTrait;
+use PHPUnit\Framework\TestCase;
+
+final class AlbaranesClientesTest extends TestCase
+{
+    use LogErrorsTrait;
+
+    public function testCreate(): void
+    {
+        $generated = AlbaranesClientes::create(5);
+        $this->assertEquals(5, $generated);
+    }
+
+    public function testCreateWithZero(): void
+    {
+        $generated = AlbaranesClientes::create(0);
+        $this->assertEquals(0, $generated);
+    }
+
+    public function testCreateWithNegative(): void
+    {
+        $generated = AlbaranesClientes::create(-10);
+        $this->assertEquals(0, $generated);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->logErrors();
+    }
+}
