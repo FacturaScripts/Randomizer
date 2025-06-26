@@ -3,7 +3,9 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Agentes;
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
+use FacturaScripts\Dinamic\Model\Agente;
 use PHPUnit\Framework\TestCase;
 
 final class AgentesTest extends TestCase
@@ -14,6 +16,15 @@ final class AgentesTest extends TestCase
     {
         $generated = Agentes::create(50);
         $this->assertEquals(50, $generated);
+
+        $CodAgentes = Agentes::getCodagentes();
+        $AgenteModel = new Agente();
+        foreach ($CodAgentes as $value) {
+            $where = [new DataBaseWhere('codagente', $value)];
+            foreach($AgenteModel->all($where) as $agente) {
+                $agente->delete();
+            }
+        }
     }
 
     public function testCreateWithZero(): void

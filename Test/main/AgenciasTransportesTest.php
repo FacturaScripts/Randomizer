@@ -16,8 +16,8 @@ final class AgenciasTransportesTest extends TestCase
     {
         $generated = AgenciasTransportes::create(7);
         $this->assertEquals(7, $generated);
-        $Codtrans = AgenciasTransportes::getCodtrans();
         
+        $Codtrans = AgenciasTransportes::getCodtrans();
         $AgenciastransModel = new AgenciaTransporte();
         foreach ($Codtrans as $value) {
             $where = [new DataBaseWhere('codtrans', $value)];
