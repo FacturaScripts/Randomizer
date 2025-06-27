@@ -31,7 +31,7 @@ use Faker;
 class AgenciasTransportes extends NewItems
 {
 
-    private static array $codtrans = [];
+    private static array $Ids = [];
 
     /**
      *
@@ -58,7 +58,7 @@ class AgenciasTransportes extends NewItems
             if (false === $agencia->save()) {
                 break;
             }
-            self::$codtrans[] = $agencia->primaryColumnValue();
+            self::$Ids[] = $agencia->primaryColumnValue();
         }
         return $generated;
     }
@@ -66,8 +66,8 @@ class AgenciasTransportes extends NewItems
     /**
      * @return array<string>
      */
-    public static function getCodtrans(): array
+    public static function getIds(): array
     {
-        return self::$codtrans;
+        return self::$Ids;
     }
 }

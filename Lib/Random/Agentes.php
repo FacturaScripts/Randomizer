@@ -30,7 +30,7 @@ use Faker;
 class Agentes extends NewItems
 {
 
-    private static array $codagentes = [];
+    private static array $Ids = [];
 
     /**
      *
@@ -63,7 +63,7 @@ class Agentes extends NewItems
             if (false === $agente->save()) {
                 break;
             }
-            self::$codagentes[] = $agente->primaryColumnValue();
+            self::$Ids[] = $agente->primaryColumnValue();
             static::setContact($faker, $agente);
         }
 
@@ -92,8 +92,8 @@ class Agentes extends NewItems
     /**
      * @return array<string>
      */
-    public static function getCodagentes(): array
+    public static function getIds(): array
     {
-        return self::$codagentes;
+        return self::$Ids;
     }
 }

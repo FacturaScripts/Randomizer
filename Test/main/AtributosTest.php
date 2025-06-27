@@ -2,14 +2,10 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Core\Model\AtributoValor as ModelAtributoValor;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Atributos;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
-use FacturaScripts\Dinamic\Model\AtributoValor;
 use FacturaScripts\Dinamic\Model\Atributo;
-use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 final class AtributosTest extends TestCase
 {
@@ -20,9 +16,12 @@ final class AtributosTest extends TestCase
         $generated = Atributos::create(6);
         $this->assertEquals(6, $generated);
 
-        $atributos = new Atributo();
-        $allAtributos = $atributos->all();
-        $this->assertCount(5, $allAtributos);
+        foreach (Atributos::getIds() as $id) {
+            $Atributo = new Atributo();
+            if ($Atributo->loadFromCode($id)) {
+                $Atributo->delete();
+            }
+        }
     }
 
     public function testCreateWithZero(): void

@@ -17,12 +17,10 @@ final class AgenciasTransportesTest extends TestCase
         $generated = AgenciasTransportes::create(7);
         $this->assertEquals(7, $generated);
         
-        $Codtrans = AgenciasTransportes::getCodtrans();
-        $AgenciastransModel = new AgenciaTransporte();
-        foreach ($Codtrans as $value) {
-            $where = [new DataBaseWhere('codtrans', $value)];
-            foreach($AgenciastransModel->all($where) as $agenciatrans) {
-                $agenciatrans->delete();
+        foreach (AgenciasTransportes::getIds() as $id) {
+            $agencia = new AgenciaTransporte();
+            if ($agencia->loadFromCode($id)) {
+                $agencia->delete();
             }
         }
     }

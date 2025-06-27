@@ -3,6 +3,7 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
+use FacturaScripts\Dinamic\Model\AlbaranCliente;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -14,6 +15,13 @@ final class AlbaranesClientesTest extends TestCase
     {
         $generated = AlbaranesClientes::create(5);
         $this->assertEquals(5, $generated);
+
+        foreach (AlbaranesClientes::getIds() as $id) {
+            $albaran = new AlbaranCliente();
+            if ($albaran->loadFromCode($id)) {
+                $albaran->delete();
+            }
+        }
     }
 
     public function testCreateWithZero(): void
