@@ -30,6 +30,8 @@ use Faker;
 class Comisiones extends NewItems
 {
 
+    private static array $Ids = [];
+
     /**
      *
      * @param int $number
@@ -57,8 +59,14 @@ class Comisiones extends NewItems
             if (false === $comision->save()) {
                 break;
             }
+            self::$Ids[] = $comision->primaryColumnValue();
         }
 
         return $generated;
+    }
+
+    public static function getIds(): array
+    {
+        return self::$Ids;
     }
 }
