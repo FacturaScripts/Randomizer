@@ -2,39 +2,39 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
-use FacturaScripts\Dinamic\Model\AlbaranCliente;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
+use FacturaScripts\Core\Model\Fabricante;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\Fabricantes;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use PHPUnit\Framework\TestCase;
 
-final class AlbaranesClientesTest extends TestCase
+final class FabricantesTest extends TestCase
 {
     use LogErrorsTrait;
     use GetIdsTrait;
 
     public function testCreate(): void
     {
-        $generated = AlbaranesClientes::create(5);
-        $this->assertEquals(5, $generated);
+        $generated = Fabricantes::create(3);
+        $this->assertEquals(3, $generated);
 
         foreach (self::getIds() as $id) {
-            $albaran = new AlbaranCliente();
-            if ($albaran->loadFromCode($id)) {
-                $albaran->delete();
+            $fabricante = new Fabricante();
+            if ($fabricante->loadFromCode($id)) {
+                $fabricante->delete();
             }
         }
     }
 
     public function testCreateWithZero(): void
     {
-        $generated = AlbaranesClientes::create(0);
+        $generated = Fabricantes::create(0);
         $this->assertEquals(0, $generated);
     }
 
     public function testCreateWithNegative(): void
     {
-        $generated = AlbaranesClientes::create(-10);
+        $generated = Fabricantes::create(-1);
         $this->assertEquals(0, $generated);
     }
 

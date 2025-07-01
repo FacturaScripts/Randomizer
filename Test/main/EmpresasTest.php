@@ -2,39 +2,39 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Plugins\Randomizer\Lib\Random\Almacenes;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
-use FacturaScripts\Dinamic\Model\Almacen;
+use FacturaScripts\Dinamic\Model\Empresa;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\Empresas;
 use PHPUnit\Framework\TestCase;
 
-final class AlmacenesTest extends TestCase
+final class EmpresasTest extends TestCase
 {
     use LogErrorsTrait;
     use GetIdsTrait;
 
     public function testCreate(): void
     {
-        $generated = Almacenes::create(8);
-        $this->assertEquals(8, $generated);
+        $generated = Empresas::create(7);
+        $this->assertEquals(7, $generated);
 
-        foreach (self::getIds() as $id) {
-            $Almacen = new Almacen();
-            if ($Almacen->loadFromCode($id)) {
-                $Almacen->delete();
+        foreach (GetIdsTrait::getIds() as $id) {
+            $agencia = new Empresa();
+            if ($agencia->loadFromCode($id)) {
+                $agencia->delete();
             }
         }
     }
 
     public function testCreateWithZero(): void
     {
-        $generated = Almacenes::create(0);
+        $generated = Empresas::create(0);
         $this->assertEquals(0, $generated);
     }
 
-    public function testCreateWithNegativeNumber(): void
+    public function testCreateWithNegative(): void
     {
-        $generated = Almacenes::create(-3);
+        $generated = Empresas::create(-1);
         $this->assertEquals(0, $generated);
     }
 

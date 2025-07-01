@@ -30,7 +30,7 @@ use Faker;
 class Agentes extends NewItems
 {
 
-    private static array $Ids = [];
+    use GetIdsTrait;
 
     /**
      *
@@ -63,8 +63,8 @@ class Agentes extends NewItems
             if (false === $agente->save()) {
                 break;
             }
-            self::$Ids[] = $agente->primaryColumnValue();
             static::setContact($faker, $agente);
+            self::setId($agente->primaryColumnValue());
         }
 
         return $generated;
@@ -87,13 +87,5 @@ class Agentes extends NewItems
         $contact->direccion = $faker->optional()->address();
         $contact->provincia = $faker->optional()->state();
         $contact->save();
-    }
-
-    /**
-     * @return array<string>
-     */
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

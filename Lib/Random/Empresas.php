@@ -30,6 +30,7 @@ use Faker;
  */
 class Empresas extends NewItems
 {
+    use GetIdsTrait;
 
     /**
      *
@@ -70,8 +71,10 @@ class Empresas extends NewItems
             if (false === $empresa->save()) {
                 break;
             }
+            self::setId($empresa->primaryColumnValue());
         }
 
         return $generated;
     }
+
 }

@@ -30,7 +30,7 @@ use Faker;
  */
 class AgenciasTransportes extends NewItems
 {
-
+    use GetIdsTrait;
     private static array $Ids = [];
 
     /**
@@ -58,16 +58,8 @@ class AgenciasTransportes extends NewItems
             if (false === $agencia->save()) {
                 break;
             }
-            self::$Ids[] = $agencia->primaryColumnValue();
+            self::setId($agencia->primaryColumnValue());
         }
         return $generated;
-    }
-
-    /**
-     * @return array<string>
-     */
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

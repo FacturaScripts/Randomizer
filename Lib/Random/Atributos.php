@@ -32,7 +32,7 @@ use Faker;
 class Atributos extends NewItems
 {
 
-    private static array $Ids = [];
+    use GetIdsTrait;
 
     /**
      *
@@ -57,10 +57,8 @@ class Atributos extends NewItems
             }
 
             self::createValues($faker, $atributo->codatributo);
-            self::$Ids[] = $atributo->primaryColumnValue();
+            self::setId($atributo->primaryColumnValue());
         }
-        
-
         return $generated;
     }
 
@@ -81,10 +79,5 @@ class Atributos extends NewItems
                 break;
             }
         }
-    }
-
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

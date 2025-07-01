@@ -32,7 +32,7 @@ use Faker;
 class AlbaranesClientes extends NewBusinessDocument
 {
 
-    private static array $Ids = [];
+    use GetIdsTrait;
 
     public static function create(int $number = 10): int
     {
@@ -71,16 +71,11 @@ class AlbaranesClientes extends NewBusinessDocument
 
                 return $generated;
             }
-            self::$Ids[] = $doc->primaryColumnValue();
+            self::setId($doc->primaryColumnValue());
         }
 
         static::dataBase()->commit();
 
         return $generated;
-    }
-
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

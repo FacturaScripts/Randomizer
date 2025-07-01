@@ -30,6 +30,8 @@ use Faker;
 class Contactos extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -51,6 +53,7 @@ class Contactos extends NewItems
             if (false === $contact->save()) {
                 break;
             }
+            self::setId($contact->primaryColumnValue());
         }
 
         return $generated;

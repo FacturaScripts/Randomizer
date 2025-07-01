@@ -32,7 +32,7 @@ use Faker;
 class Clientes extends NewItems
 {
 
-    private static array $Ids = [];
+    use GetIdsTrait;
 
     /**
      *
@@ -76,7 +76,7 @@ class Clientes extends NewItems
 
             static::createBankAccounts($faker, $cliente->codcliente);
             static::createContacts($faker, $cliente->codcliente);
-            self::$Ids[] = $cliente->primaryColumnValue();
+            self::setId($cliente->primaryColumnValue());
         }
 
         static::dataBase()->commit();
@@ -117,10 +117,5 @@ class Clientes extends NewItems
             $contact->codcliente = $codcliente;
             $contact->save();
         }
-    }
-
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

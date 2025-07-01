@@ -31,7 +31,7 @@ use Faker;
 class Almacenes extends NewItems
 {
 
-    private static array $Ids = [];
+    use GetIdsTrait;
 
     /**
      *
@@ -63,14 +63,8 @@ class Almacenes extends NewItems
             if (false === $almacen->save()) {
                 break;
             }
-            self::$Ids[] = $almacen->primaryColumnValue();
+            self::setId($almacen->primaryColumnValue());
         }
-
         return $generated;
-    }
-
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

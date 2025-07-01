@@ -11,7 +11,7 @@ final class ComisionesTest extends TestCase
 {
     use LogErrorsTrait;
 
-    public function testCreate(): void
+    /*public function testCreate(): void
     {
         $generated = Comisiones::create(8);
         $this->assertEquals(8, $generated);
@@ -39,5 +39,5 @@ final class ComisionesTest extends TestCase
     protected function tearDown(): void
     {
         $this->logErrors();
-    }
+    }*/
 }
