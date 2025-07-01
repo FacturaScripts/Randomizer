@@ -31,6 +31,8 @@ use function mt_rand;
 class Familias extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -57,6 +59,7 @@ class Familias extends NewItems
             }
 
             $madre = $familia->codfamilia;
+            self::setId($familia->primaryColumnValue());
         }
 
         return $generated;
