@@ -3,7 +3,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Atributos;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use FacturaScripts\Dinamic\Model\Atributo;
 use PHPUnit\Framework\TestCase;
@@ -11,14 +10,13 @@ use PHPUnit\Framework\TestCase;
 final class AtributosTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Atributos::create(6);
         $this->assertEquals(6, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (Atributos::getIds() as $id) {
             $Atributo = new Atributo();
             if ($Atributo->loadFromCode($id)) {
                 $Atributo->delete();

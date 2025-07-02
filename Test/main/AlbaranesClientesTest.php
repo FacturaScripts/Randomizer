@@ -4,21 +4,19 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
 use FacturaScripts\Dinamic\Model\AlbaranCliente;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class AlbaranesClientesTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = AlbaranesClientes::create(5);
         $this->assertEquals(5, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (AlbaranesClientes::getIds() as $id) {
             $albaran = new AlbaranCliente();
             if ($albaran->loadFromCode($id)) {
                 $albaran->delete();

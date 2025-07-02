@@ -3,7 +3,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Almacenes;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use FacturaScripts\Dinamic\Model\Almacen;
 use PHPUnit\Framework\TestCase;
@@ -11,17 +10,16 @@ use PHPUnit\Framework\TestCase;
 final class AlmacenesTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Almacenes::create(8);
         $this->assertEquals(8, $generated);
 
-        foreach (self::getIds() as $id) {
-            $Almacen = new Almacen();
-            if ($Almacen->loadFromCode($id)) {
-                $Almacen->delete();
+        foreach (Almacenes::getIds() as $id) {
+            $almacen = new Almacen();
+            if ($almacen->loadFromCode($id)) {
+                $almacen->delete();
             }
         }
     }

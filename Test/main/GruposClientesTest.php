@@ -3,7 +3,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\GrupoClientes;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\GruposClientes;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
@@ -11,14 +10,13 @@ use PHPUnit\Framework\TestCase;
 final class GruposClientesTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = GruposClientes::create(3);
         $this->assertEquals(3, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (GruposClientes::getIds() as $id) {
             $grupocli = new GrupoClientes();
             if ($grupocli->loadFromCode($id)) {
                 $grupocli->delete();

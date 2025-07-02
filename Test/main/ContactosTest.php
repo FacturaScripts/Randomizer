@@ -2,7 +2,6 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 use FacturaScripts\Dinamic\Model\Contacto;
@@ -11,14 +10,13 @@ use FacturaScripts\Plugins\Randomizer\Lib\Random\Contactos;
 final class ContactosTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Contactos::create(3);
         $this->assertEquals(3, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (Contactos::getIds() as $id) {
             $contacto = new Contacto();
             if ($contacto->loadFromCode($id)) {
                 $contacto->delete();

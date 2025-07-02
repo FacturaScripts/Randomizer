@@ -5,20 +5,18 @@ namespace FacturaScripts\Test\Plugins;
 use FacturaScripts\Core\Model\Fabricante;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Fabricantes;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class FabricantesTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Fabricantes::create(3);
         $this->assertEquals(3, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (Fabricantes::getIds() as $id) {
             $fabricante = new Fabricante();
             if ($fabricante->loadFromCode($id)) {
                 $fabricante->delete();

@@ -4,21 +4,19 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Core\Model\AlbaranProveedor;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesProveedores;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class AlbaranesProveedoresTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = AlbaranesProveedores::create(7);
         //$this->assertEquals(7, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (AlbaranesProveedores::getIds() as $id) {
             $albaran = new AlbaranProveedor();
             if ($albaran->loadFromCode($id)) {
                 $albaran->delete();

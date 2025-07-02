@@ -3,7 +3,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Agentes;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use FacturaScripts\Dinamic\Model\Agente;
 use PHPUnit\Framework\TestCase;
@@ -11,14 +10,13 @@ use PHPUnit\Framework\TestCase;
 final class AgentesTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Agentes::create(7);
         $this->assertEquals(7, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (Agentes::getIds() as $id) {
             $Agente = new Agente();
             if ($Agente->loadFromCode($id)) {
                 $Agente->delete();

@@ -4,21 +4,19 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\Familia;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Familias;
-use FacturaScripts\Plugins\Randomizer\Lib\Random\GetIdsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class FamiliasTest extends TestCase
 {
     use LogErrorsTrait;
-    use GetIdsTrait;
 
     public function testCreate(): void
     {
         $generated = Familias::create(3);
         $this->assertEquals(3, $generated);
 
-        foreach (self::getIds() as $id) {
+        foreach (Familias::getIds() as $id) {
             $familia = new Familia();
             if ($familia->loadFromCode($id)) {
                 $familia->delete();
