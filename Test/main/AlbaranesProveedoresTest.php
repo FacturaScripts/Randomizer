@@ -18,9 +18,8 @@ final class AlbaranesProveedoresTest extends TestCase
 
         foreach (AlbaranesProveedores::getIds() as $id) {
             $albaran = new AlbaranProveedor();
-            if ($albaran->loadFromCode($id)) {
-                $albaran->delete();
-            }
+            $this->assertTrue($albaran->loadFromCode($id));
+            $this->assertTrue($albaran->delete());
         }
     }
 

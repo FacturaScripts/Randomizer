@@ -18,9 +18,8 @@ final class ClientesTest extends TestCase
 
         foreach (Clientes::getIds() as $id) {
             $cliente = new Cliente();
-            if ($cliente->loadFromCode($id)) {
-                $cliente->delete();
-            }
+            $this->assertTrue($cliente->loadFromCode($id));
+            $this->assertTrue($cliente->delete());
         }
     }
 

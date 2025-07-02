@@ -18,9 +18,8 @@ final class AgenciasTransportesTest extends TestCase
         
         foreach (AgenciasTransportes::getIds() as $id) {
             $agencia = new AgenciaTransporte();
-            if ($agencia->loadFromCode($id)) {
-                $agencia->delete();
-            }
+            $this->assertTrue($agencia->loadFromCode($id));
+            $this->assertTrue($agencia->delete());
         }
     }
 

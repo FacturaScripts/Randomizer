@@ -18,9 +18,8 @@ final class AlmacenesTest extends TestCase
 
         foreach (Almacenes::getIds() as $id) {
             $almacen = new Almacen();
-            if ($almacen->loadFromCode($id)) {
-                $almacen->delete();
-            }
+            $this->assertTrue($almacen->loadFromCode($id));
+            $this->assertTrue($almacen->delete());
         }
     }
 

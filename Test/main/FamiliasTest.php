@@ -18,9 +18,8 @@ final class FamiliasTest extends TestCase
 
         foreach (Familias::getIds() as $id) {
             $familia = new Familia();
-            if ($familia->loadFromCode($id)) {
-                $familia->delete();
-            }
+            $this->assertTrue($familia->loadFromCode($id));
+            $this->assertTrue($familia->delete());
         }
     }
 

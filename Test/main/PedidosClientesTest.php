@@ -18,9 +18,8 @@ final class PedidosClientesTest extends TestCase
 
         foreach (PedidosClientes::getIds() as $id) {
             $pedidocli = new PedidoCliente();
-            if ($pedidocli->loadFromCode($id)) {
-                $pedidocli->delete();
-            }
+            $this->assertTrue($pedidocli->loadFromCode($id));
+            $this->assertTrue($pedidocli->delete());
         }
     }
 

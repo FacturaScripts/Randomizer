@@ -18,9 +18,8 @@ final class GruposClientesTest extends TestCase
 
         foreach (GruposClientes::getIds() as $id) {
             $grupocli = new GrupoClientes();
-            if ($grupocli->loadFromCode($id)) {
-                $grupocli->delete();
-            }
+            $this->assertTrue($grupocli->loadFromCode($id));
+            $this->assertTrue($grupocli->delete());
         }
     }
 

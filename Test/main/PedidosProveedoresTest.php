@@ -18,9 +18,8 @@ final class PedidosProveedoresTest extends TestCase
 
         foreach (PedidosProveedores::getIds() as $id) {
             $pedidoprov = new PedidoProveedor();
-            if ($pedidoprov->loadFromCode($id)) {
-                $pedidoprov->delete();
-            }
+            $this->assertTrue($pedidoprov->loadFromCode($id));
+            $this->assertTrue($pedidoprov->delete());
         }
     }
 

@@ -18,9 +18,8 @@ final class ContactosTest extends TestCase
 
         foreach (Contactos::getIds() as $id) {
             $contacto = new Contacto();
-            if ($contacto->loadFromCode($id)) {
-                $contacto->delete();
-            }
+            $this->assertTrue($contacto->loadFromCode($id));
+            $this->assertTrue($contacto->delete());
         }
     }
 

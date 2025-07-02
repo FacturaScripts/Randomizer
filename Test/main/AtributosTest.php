@@ -18,9 +18,8 @@ final class AtributosTest extends TestCase
 
         foreach (Atributos::getIds() as $id) {
             $Atributo = new Atributo();
-            if ($Atributo->loadFromCode($id)) {
-                $Atributo->delete();
-            }
+            $this->assertTrue($Atributo->loadFromCode($id));
+            $this->assertTrue($Atributo->delete());
         }
     }
 

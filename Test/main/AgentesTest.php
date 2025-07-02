@@ -18,9 +18,8 @@ final class AgentesTest extends TestCase
 
         foreach (Agentes::getIds() as $id) {
             $Agente = new Agente();
-            if ($Agente->loadFromCode($id)) {
-                $Agente->delete();
-            }
+            $this->assertTrue($Agente->loadFromCode($id));
+            $this->assertTrue($Agente->delete());
         }
     }
 

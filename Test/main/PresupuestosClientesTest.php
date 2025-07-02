@@ -18,8 +18,8 @@ final class PresupuestosClientesTest extends TestCase
 
         foreach (PresupuestosClientes::getIds() as $id) {
             $presupuesto = new PresupuestoCliente();
-            $presupuesto->loadFromCode($id);
-            $presupuesto->delete();
+            $this->assertTrue($presupuesto->loadFromCode($id));
+            $this->assertTrue($presupuesto->delete());
         }
     }
 

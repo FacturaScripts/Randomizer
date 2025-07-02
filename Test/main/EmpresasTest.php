@@ -18,9 +18,8 @@ final class EmpresasTest extends TestCase
 
         foreach (Empresas::getIds() as $id) {
             $agencia = new Empresa();
-            if ($agencia->loadFromCode($id)) {
-                $agencia->delete();
-            }
+            $this->assertTrue($agencia->loadFromCode($id));
+            $this->assertTrue($agencia->delete());
         }
     }
 

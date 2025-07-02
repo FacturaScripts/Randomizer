@@ -18,9 +18,8 @@ final class FabricantesTest extends TestCase
 
         foreach (Fabricantes::getIds() as $id) {
             $fabricante = new Fabricante();
-            if ($fabricante->loadFromCode($id)) {
-                $fabricante->delete();
-            }
+            $this->assertTrue($fabricante->loadFromCode($id));
+            $this->assertTrue($fabricante->delete());
         }
     }
 
