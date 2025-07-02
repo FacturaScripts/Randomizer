@@ -34,6 +34,9 @@ use Faker;
  */
 class Productos extends NewItems
 {
+
+    use GetIdsTrait;
+
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -73,6 +76,7 @@ class Productos extends NewItems
             $product->loadFromCode($product->idproducto);
             $product->actualizado = $faker->dateTime();
             $product->save();
+            self::setId($product->primaryColumnValue());
         }
 
         static::dataBase()->commit();

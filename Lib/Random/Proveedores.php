@@ -32,6 +32,8 @@ use Faker;
 class Proveedores extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -73,6 +75,7 @@ class Proveedores extends NewItems
 
             static::createBankAccounts($faker, $proveedor->codproveedor);
             static::createContacts($faker, $proveedor->codproveedor);
+            self::setId($proveedor->primaryColumnValue());
         }
 
         static::dataBase()->commit();
