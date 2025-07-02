@@ -2,6 +2,7 @@
 
 namespace FacturaScripts\Test\Plugins;
 
+use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Agentes;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use FacturaScripts\Dinamic\Model\Agente;
@@ -10,6 +11,11 @@ use PHPUnit\Framework\TestCase;
 final class AgentesTest extends TestCase
 {
     use LogErrorsTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        new User();
+    }
 
     public function testCreate(): void
     {

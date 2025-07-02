@@ -4,12 +4,19 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
 use FacturaScripts\Dinamic\Model\AlbaranCliente;
+use FacturaScripts\Test\Traits\DefaultSettingsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class AlbaranesClientesTest extends TestCase
 {
     use LogErrorsTrait;
+    use DefaultSettingsTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::setDefaultSettings();
+    }
 
     public function testCreate(): void
     {
