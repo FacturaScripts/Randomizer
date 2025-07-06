@@ -29,15 +29,8 @@ use Faker;
  */
 class Comisiones extends NewItems
 {
+    use GetIdsTrait;
 
-    private static array $Ids = [];
-
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -59,14 +52,10 @@ class Comisiones extends NewItems
             if (false === $comision->save()) {
                 break;
             }
-            self::$Ids[] = $comision->primaryColumnValue();
+
+            self::setId($comision->primaryColumnValue());
         }
 
         return $generated;
-    }
-
-    public static function getIds(): array
-    {
-        return self::$Ids;
     }
 }

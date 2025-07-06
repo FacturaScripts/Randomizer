@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
+use FacturaScripts\Core\Tools;
 use FacturaScripts\Dinamic\Model\Role;
 use FacturaScripts\Dinamic\Model\RoleUser;
 use FacturaScripts\Dinamic\Model\User;
@@ -33,21 +34,11 @@ use function shuffle;
  */
 class Usuarios extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @var Role[]
-     */
+    /** @var Role[] */
     private static $roles;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 25): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -67,7 +58,7 @@ class Usuarios extends NewItems
             $user->enabled = $faker->boolean(90);
             $user->lastactivity = $faker->date();
             $user->lastip = $faker->optional()->ipv4();
-            $user->newPassword = $user->newPassword2 = $faker->password();
+            $user->newPassword = $user->newPassword2 = Tools::password(8) . rand(1111, 9999);
 
             if (false === $user->save()) {
                 break;
@@ -76,6 +67,7 @@ class Usuarios extends NewItems
             if (false === $user->admin) {
                 static::setRole($user);
             }
+
             self::setId($user->primaryColumnValue());
         }
 
@@ -83,10 +75,9 @@ class Usuarios extends NewItems
     }
 
     /**
-     *
      * @param User $user
      */
-    private static function setRole($user)
+    private static function setRole($user): void
     {
         if (null === self::$roles) {
             $role = new Role();

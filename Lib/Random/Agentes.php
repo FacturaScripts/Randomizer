@@ -29,15 +29,8 @@ use Faker;
  */
 class Agentes extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -63,6 +56,7 @@ class Agentes extends NewItems
             if (false === $agente->save()) {
                 break;
             }
+
             static::setContact($faker, $agente);
             self::setId($agente->primaryColumnValue());
         }
@@ -77,7 +71,7 @@ class Agentes extends NewItems
      *
      * @param Agente $agent
      */
-    private static function setContact(&$faker, &$agent)
+    private static function setContact(&$faker, &$agent): void
     {
         $contact = $agent->getContact();
         $contact->apartado = $faker->optional(0.1)->postcode();

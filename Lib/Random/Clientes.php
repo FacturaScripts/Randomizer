@@ -31,15 +31,8 @@ use Faker;
  */
 class Clientes extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -84,11 +77,10 @@ class Clientes extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
      * @param string $codcliente
      */
-    private static function createBankAccounts(&$faker, $codcliente)
+    private static function createBankAccounts(&$faker, $codcliente): void
     {
         $max = $faker->numberBetween(-1, 5);
         for ($index = 1; $index <= $max; $index++) {
@@ -104,11 +96,10 @@ class Clientes extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
      * @param string $codcliente
      */
-    private static function createContacts(&$faker, $codcliente)
+    private static function createContacts(&$faker, $codcliente): void
     {
         $max = $faker->numberBetween(-1, 5);
         for ($index = 1; $index <= $max; $index++) {

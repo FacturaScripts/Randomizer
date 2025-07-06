@@ -32,7 +32,6 @@ use FacturaScripts\Dinamic\Model\Proveedor;
  */
 trait ComercialContactTrait
 {
-
     /**
      * @var Agente[]
      */

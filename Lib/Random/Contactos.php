@@ -29,15 +29,8 @@ use Faker;
  */
 class Contactos extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -53,6 +46,7 @@ class Contactos extends NewItems
             if (false === $contact->save()) {
                 break;
             }
+
             self::setId($contact->primaryColumnValue());
         }
 
@@ -60,11 +54,10 @@ class Contactos extends NewItems
     }
 
     /**
-     *
      * @param Faker\Generator $faker
      * @param Contacto $contact
      */
-    public static function setContactData(&$faker, &$contact)
+    public static function setContactData(&$faker, &$contact): void
     {
         $contact->aceptaprivacidad = $faker->boolean();
         $contact->admitemarketing = $faker->boolean();

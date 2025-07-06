@@ -19,7 +19,6 @@
 
 namespace FacturaScripts\Plugins\Randomizer;
 
-
 use FacturaScripts\Core\Template\InitClass;
 
 require_once __DIR__ . '/vendor/autoload.php';

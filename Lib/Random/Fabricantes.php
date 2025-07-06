@@ -29,15 +29,8 @@ use Faker;
  */
 class Fabricantes extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -54,8 +47,10 @@ class Fabricantes extends NewItems
             if (false === $fabricante->save()) {
                 break;
             }
+
             self::setId($fabricante->primaryColumnValue());
         }
+
         return $generated;
     }
 }

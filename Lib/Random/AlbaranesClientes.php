@@ -31,7 +31,6 @@ use Faker;
  */
 class AlbaranesClientes extends NewBusinessDocument
 {
-
     use GetIdsTrait;
 
     public static function create(int $number = 10): int
@@ -71,6 +70,7 @@ class AlbaranesClientes extends NewBusinessDocument
 
                 return $generated;
             }
+
             self::setId($doc->primaryColumnValue());
         }
 

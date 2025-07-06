@@ -29,15 +29,8 @@ use Faker;
  */
 class GruposClientes extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 25): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -55,6 +48,7 @@ class GruposClientes extends NewItems
             if (false === $grupo->save()) {
                 break;
             }
+
             self::setId($grupo->primaryColumnValue());
         }
 

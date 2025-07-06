@@ -30,15 +30,8 @@ use function mt_rand;
  */
 class Familias extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -59,6 +52,7 @@ class Familias extends NewItems
             }
 
             $madre = $familia->codfamilia;
+
             self::setId($familia->primaryColumnValue());
         }
 

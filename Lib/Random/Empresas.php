@@ -32,12 +32,6 @@ class Empresas extends NewItems
 {
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 5): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -71,10 +65,10 @@ class Empresas extends NewItems
             if (false === $empresa->save()) {
                 break;
             }
+
             self::setId($empresa->primaryColumnValue());
         }
 
         return $generated;
     }
-
 }

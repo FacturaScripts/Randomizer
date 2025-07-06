@@ -30,15 +30,8 @@ use Faker;
  */
 class Almacenes extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 5): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -63,8 +56,10 @@ class Almacenes extends NewItems
             if (false === $almacen->save()) {
                 break;
             }
+
             self::setId($almacen->primaryColumnValue());
         }
+
         return $generated;
     }
 }

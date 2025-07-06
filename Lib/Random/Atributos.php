@@ -31,15 +31,8 @@ use Faker;
  */
 class Atributos extends NewItems
 {
-
     use GetIdsTrait;
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 5): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -59,15 +52,15 @@ class Atributos extends NewItems
             self::createValues($faker, $atributo->codatributo);
             self::setId($atributo->primaryColumnValue());
         }
+
         return $generated;
     }
 
     /**
-     *
      * @param Faker $faker
      * @param string $parent
      */
-    private static function createValues(&$faker, $parent)
+    private static function createValues(&$faker, $parent): void
     {
         $max = $faker->numberBetween(1, 10);
         for ($index = 1; $index <= $max; $index++) {

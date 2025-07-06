@@ -31,14 +31,7 @@ use Faker;
 class AgenciasTransportes extends NewItems
 {
     use GetIdsTrait;
-    private static array $Ids = [];
 
-    /**
-     *
-     * @param int $number
-     *
-     * @return int
-     */
     public static function create(int $number = 5): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -58,8 +51,10 @@ class AgenciasTransportes extends NewItems
             if (false === $agencia->save()) {
                 break;
             }
+
             self::setId($agencia->primaryColumnValue());
         }
+
         return $generated;
     }
 }

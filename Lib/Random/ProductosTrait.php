@@ -80,7 +80,6 @@ trait ProductosTrait
     }
 
     /**
-     *
      * @return string
      */
     protected static function codalmacen()
@@ -95,7 +94,6 @@ trait ProductosTrait
     }
 
     /**
-     *
      * @return string|null
      */
     protected static function codfabricante()
@@ -110,7 +108,6 @@ trait ProductosTrait
     }
 
     /**
-     *
      * @return string|null
      */
     protected static function codfamilia()
@@ -125,7 +122,6 @@ trait ProductosTrait
     }
 
     /**
-     *
      * @return int|null
      */
     protected static function idproducto()
@@ -140,7 +136,6 @@ trait ProductosTrait
     }
 
     /**
-     *
      * @return string|null
      */
     protected static function referencia()
@@ -154,10 +149,6 @@ trait ProductosTrait
         return empty(self::$variants) || mt_rand(0, 2) === 0 ? null : self::$variants[0]->referencia;
     }
 
-    /**
-     *
-     * @return array
-     */
     private static function variantOrder(): array
     {
         $fields = ['codbarras', 'coste', 'idproducto', 'idvariante', 'precio', 'referencia'];

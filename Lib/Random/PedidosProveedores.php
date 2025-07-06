@@ -30,7 +30,6 @@ use Faker;
  */
 class PedidosProveedores extends NewBusinessDocument
 {
-
     use GetIdsTrait;
 
     public static function create(int $number = 10): int
@@ -67,6 +66,7 @@ class PedidosProveedores extends NewBusinessDocument
 
                 return $generated;
             }
+
             self::setId($doc->primaryColumnValue());
         }
 
