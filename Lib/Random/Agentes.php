@@ -30,6 +30,8 @@ use Faker;
 class Agentes extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -61,8 +63,8 @@ class Agentes extends NewItems
             if (false === $agente->save()) {
                 break;
             }
-
             static::setContact($faker, $agente);
+            self::setId($agente->primaryColumnValue());
         }
 
         return $generated;

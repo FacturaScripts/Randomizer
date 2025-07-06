@@ -32,6 +32,8 @@ use Faker;
 class Atributos extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -55,8 +57,8 @@ class Atributos extends NewItems
             }
 
             self::createValues($faker, $atributo->codatributo);
+            self::setId($atributo->primaryColumnValue());
         }
-
         return $generated;
     }
 

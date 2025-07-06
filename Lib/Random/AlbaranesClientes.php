@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Base\Calculator;
 use FacturaScripts\Dinamic\Model\AlbaranCliente;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\NewBusinessDocument;
 use Faker;
 
 /**
@@ -30,6 +31,9 @@ use Faker;
  */
 class AlbaranesClientes extends NewBusinessDocument
 {
+
+    use GetIdsTrait;
+
     public static function create(int $number = 10): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -67,6 +71,7 @@ class AlbaranesClientes extends NewBusinessDocument
 
                 return $generated;
             }
+            self::setId($doc->primaryColumnValue());
         }
 
         static::dataBase()->commit();

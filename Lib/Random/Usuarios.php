@@ -34,6 +34,8 @@ use function shuffle;
 class Usuarios extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @var Role[]
@@ -74,6 +76,7 @@ class Usuarios extends NewItems
             if (false === $user->admin) {
                 static::setRole($user);
             }
+            self::setId($user->primaryColumnValue());
         }
 
         return $generated;

@@ -30,6 +30,8 @@ use Faker;
  */
 class AgenciasTransportes extends NewItems
 {
+    use GetIdsTrait;
+    private static array $Ids = [];
 
     /**
      *
@@ -56,8 +58,8 @@ class AgenciasTransportes extends NewItems
             if (false === $agencia->save()) {
                 break;
             }
+            self::setId($agencia->primaryColumnValue());
         }
-
         return $generated;
     }
 }

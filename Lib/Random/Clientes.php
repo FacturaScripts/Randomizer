@@ -32,6 +32,8 @@ use Faker;
 class Clientes extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -74,6 +76,7 @@ class Clientes extends NewItems
 
             static::createBankAccounts($faker, $cliente->codcliente);
             static::createContacts($faker, $cliente->codcliente);
+            self::setId($cliente->primaryColumnValue());
         }
 
         static::dataBase()->commit();

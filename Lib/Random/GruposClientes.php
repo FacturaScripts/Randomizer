@@ -30,6 +30,8 @@ use Faker;
 class GruposClientes extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -53,6 +55,7 @@ class GruposClientes extends NewItems
             if (false === $grupo->save()) {
                 break;
             }
+            self::setId($grupo->primaryColumnValue());
         }
 
         return $generated;

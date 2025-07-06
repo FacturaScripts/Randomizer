@@ -30,6 +30,9 @@ use Faker;
  */
 class PedidosClientes extends NewBusinessDocument
 {
+
+    use GetIdsTrait;
+
     public static function create(int $number = 10): int
     {
         $faker = Faker\Factory::create('es_ES');
@@ -67,6 +70,7 @@ class PedidosClientes extends NewBusinessDocument
 
                 return $generated;
             }
+            self::setId($doc->primaryColumnValue());
         }
 
         static::dataBase()->commit();

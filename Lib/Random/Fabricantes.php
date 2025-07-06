@@ -30,6 +30,8 @@ use Faker;
 class Fabricantes extends NewItems
 {
 
+    use GetIdsTrait;
+
     /**
      *
      * @param int $number
@@ -52,8 +54,8 @@ class Fabricantes extends NewItems
             if (false === $fabricante->save()) {
                 break;
             }
+            self::setId($fabricante->primaryColumnValue());
         }
-
         return $generated;
     }
 }
