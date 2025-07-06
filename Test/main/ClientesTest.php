@@ -31,6 +31,7 @@ final class ClientesTest extends TestCase
     public function testCreate(): void
     {
         // creamos 7 clientes
+        Clientes::clear();
         $generated = Clientes::create(7);
         $this->assertEquals(7, $generated);
 

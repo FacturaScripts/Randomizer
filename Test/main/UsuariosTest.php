@@ -30,9 +30,12 @@ final class UsuariosTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 7 usuarios aleatorios
+        Usuarios::clear();
         $generated = Usuarios::create(7);
         $this->assertEquals(7, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Usuarios::getIds() as $id) {
             $user = new User();
             $this->assertTrue($user->loadFromCode($id));

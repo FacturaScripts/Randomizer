@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2025 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -58,10 +58,6 @@ class Proveedores extends NewItems
             $proveedor->telefono2 = $faker->optional()->phoneNumber();
             $proveedor->web = static::web($faker);
 
-            if ($proveedor->exists()) {
-                continue;
-            }
-
             if (false === $proveedor->save()) {
                 break;
             }
@@ -73,6 +69,7 @@ class Proveedores extends NewItems
         }
 
         static::dataBase()->commit();
+
         return $generated;
     }
 

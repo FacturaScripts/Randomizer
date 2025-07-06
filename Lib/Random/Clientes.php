@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2025 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -59,20 +59,18 @@ class Clientes extends NewItems
             $cliente->telefono2 = $faker->optional()->phoneNumber();
             $cliente->web = static::web($faker);
 
-            if ($cliente->exists()) {
-                continue;
-            }
-
             if (false === $cliente->save()) {
                 break;
             }
 
             static::createBankAccounts($faker, $cliente->codcliente);
             static::createContacts($faker, $cliente->codcliente);
+
             self::setId($cliente->primaryColumnValue());
         }
 
         static::dataBase()->commit();
+
         return $generated;
     }
 

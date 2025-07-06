@@ -20,6 +20,7 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\PresupuestoCliente;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\Clientes;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\PresupuestosClientes;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
@@ -30,13 +31,20 @@ final class PresupuestosClientesTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 6 clientes
+        $new_customers = Clientes::create(5);
+        $this->assertEquals(5, $new_customers);
+
+        // creamos 3 presupuestos
+        PresupuestosClientes::clear();
         $generated = PresupuestosClientes::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (PresupuestosClientes::getIds() as $id) {
-            $presupuesto = new PresupuestoCliente();
-            $this->assertTrue($presupuesto->loadFromCode($id));
-            $this->assertTrue($presupuesto->delete());
+            $doc = new PresupuestoCliente();
+            $this->assertTrue($doc->loadFromCode($id));
+            $this->assertTrue($doc->delete());
         }
     }
 

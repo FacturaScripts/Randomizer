@@ -30,9 +30,12 @@ final class FamiliasTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 3 familias aleatorias
+        Familias::clear();
         $generated = Familias::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Familias::getIds() as $id) {
             $familia = new Familia();
             $this->assertTrue($familia->loadFromCode($id));

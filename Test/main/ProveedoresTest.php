@@ -30,9 +30,12 @@ final class ProveedoresTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 7 proveedores
+        Proveedores::clear();
         $generated = Proveedores::create(7);
         $this->assertEquals(7, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Proveedores::getIds() as $id) {
             $producto = new Proveedor();
             $this->assertTrue($producto->loadFromCode($id));

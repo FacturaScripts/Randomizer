@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Test\Plugins;
 
+use FacturaScripts\Dinamic\Model\Cliente;
 use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesClientes;
 use FacturaScripts\Dinamic\Model\AlbaranCliente;
@@ -36,8 +37,10 @@ final class AlbaranesClientesTest extends TestCase
     {
         self::setDefaultSettings();
 
-        // cargamos el modelo de usuario
+        // cargamos los modelos necesarios
         new User();
+        new Cliente();
+        new AlbaranCliente();
     }
 
     public function testCreate(): void
@@ -47,6 +50,7 @@ final class AlbaranesClientesTest extends TestCase
         $this->assertEquals(10, $new_customers);
 
         // creamos 5 albaranes de clientes
+        AlbaranesClientes::clear();
         $generated = AlbaranesClientes::create(5);
         $this->assertEquals(5, $generated);
 

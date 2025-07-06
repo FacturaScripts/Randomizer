@@ -31,6 +31,7 @@ final class AgenciasTransportesTest extends TestCase
     public function testCreate(): void
     {
         // creamos 7 agencias de transporte
+        AgenciasTransportes::clear();
         $generated = AgenciasTransportes::create(7);
         $this->assertEquals(7, $generated);
 

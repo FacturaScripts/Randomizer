@@ -30,9 +30,12 @@ final class FabricantesTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 3 fabricantes
+        Fabricantes::clear();
         $generated = Fabricantes::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Fabricantes::getIds() as $id) {
             $fabricante = new Fabricante();
             $this->assertTrue($fabricante->loadFromCode($id));

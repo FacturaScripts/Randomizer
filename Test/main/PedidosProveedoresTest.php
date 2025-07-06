@@ -21,6 +21,7 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\PedidoProveedor;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\PedidosProveedores;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\Proveedores;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -30,13 +31,20 @@ final class PedidosProveedoresTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 5 proveedores
+        $new_suppliers = Proveedores::create(5);
+        $this->assertEquals(5, $new_suppliers);
+
+        // creamos 3 pedidos de proveedores
+        PedidosProveedores::clear();
         $generated = PedidosProveedores::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (PedidosProveedores::getIds() as $id) {
-            $pedidoprov = new PedidoProveedor();
-            $this->assertTrue($pedidoprov->loadFromCode($id));
-            $this->assertTrue($pedidoprov->delete());
+            $doc = new PedidoProveedor();
+            $this->assertTrue($doc->loadFromCode($id));
+            $this->assertTrue($doc->delete());
         }
     }
 

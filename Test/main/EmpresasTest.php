@@ -30,9 +30,12 @@ final class EmpresasTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 7 empresas
+        Empresas::clear();
         $generated = Empresas::create(7);
         $this->assertEquals(7, $generated);
 
+        // comprobamos que se han creado y las eliminamos
         foreach (Empresas::getIds() as $id) {
             $agencia = new Empresa();
             $this->assertTrue($agencia->loadFromCode($id));

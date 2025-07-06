@@ -31,6 +31,7 @@ final class AlmacenesTest extends TestCase
     public function testCreate(): void
     {
         // creamos 8 almacenes
+        Almacenes::clear();
         $generated = Almacenes::create(8);
         $this->assertEquals(8, $generated);
 

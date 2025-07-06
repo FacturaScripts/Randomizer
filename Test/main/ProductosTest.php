@@ -30,9 +30,12 @@ final class ProductosTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 7 productos
+        Productos::clear();
         $generated = Productos::create(7);
         $this->assertEquals(7, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Productos::getIds() as $id) {
             $producto = new Producto();
             $this->assertTrue($producto->loadFromCode($id));

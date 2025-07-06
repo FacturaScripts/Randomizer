@@ -31,6 +31,7 @@ final class AtributosTest extends TestCase
     public function testCreate(): void
     {
         // creamos 6 atributos
+        Atributos::clear();
         $generated = Atributos::create(6);
         $this->assertEquals(6, $generated);
 

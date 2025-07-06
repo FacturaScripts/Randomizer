@@ -30,13 +30,19 @@ final class PresupuestosProveedoresTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 6 proveedores
+        $this->assertEquals(6, PresupuestosProveedores::create(6));
+
+        // creamos 7 presupuestos
+        PresupuestosProveedores::clear();
         $generated = PresupuestosProveedores::create(7);
         $this->assertEquals(7, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (PresupuestosProveedores::getIds() as $id) {
-            $presupuestoprov = new PresupuestoProveedor();
-            $this->assertTrue($presupuestoprov->loadFromCode($id));
-            $this->assertTrue($presupuestoprov->delete());
+            $doc = new PresupuestoProveedor();
+            $this->assertTrue($doc->loadFromCode($id));
+            $this->assertTrue($doc->delete());
         }
     }
 

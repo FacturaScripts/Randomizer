@@ -30,13 +30,16 @@ final class GruposClientesTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 3 grupos
+        GruposClientes::clear();
         $generated = GruposClientes::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (GruposClientes::getIds() as $id) {
-            $grupocli = new GrupoClientes();
-            $this->assertTrue($grupocli->loadFromCode($id));
-            $this->assertTrue($grupocli->delete());
+            $grupo = new GrupoClientes();
+            $this->assertTrue($grupo->loadFromCode($id));
+            $this->assertTrue($grupo->delete());
         }
     }
 

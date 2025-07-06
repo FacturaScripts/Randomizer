@@ -47,6 +47,7 @@ final class AlbaranesProveedoresTest extends TestCase
         $this->assertEquals(10, $new_suppliers);
 
         // creamos 7 albaranes de proveedores
+        AlbaranesProveedores::clear();
         $generated = AlbaranesProveedores::create(7);
         $this->assertEquals(7, $generated);
 

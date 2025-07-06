@@ -19,24 +19,30 @@
 
 namespace FacturaScripts\Test\Plugins;
 
+use FacturaScripts\Dinamic\Model\Agente;
 use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Agentes;
+use FacturaScripts\Test\Traits\DefaultSettingsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
-use FacturaScripts\Dinamic\Model\Agente;
 use PHPUnit\Framework\TestCase;
 
 final class AgentesTest extends TestCase
 {
     use LogErrorsTrait;
+    use DefaultSettingsTrait;
 
     public static function setUpBeforeClass(): void
     {
+        self::setDefaultSettings();
+
+        // cargamos algunos modelos necesarios
         new User();
     }
 
     public function testCreate(): void
     {
         // creamos 7 agentes
+        Agentes::clear();
         $generated = Agentes::create(7);
         $this->assertEquals(7, $generated);
 
@@ -53,7 +59,7 @@ final class AgentesTest extends TestCase
         $generated = Agentes::create(0);
         $this->assertEquals(0, $generated);
     }
-    
+
     public function testCreateWithNegative(): void
     {
         $generated = Agentes::create(-10);

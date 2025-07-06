@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Randomizer plugin for FacturaScripts
- * Copyright (C) 2021-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2021-2025 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -39,8 +39,8 @@ use Faker\Generator;
  */
 abstract class NewItems
 {
-    use ComercialContactTrait,
-        ProductosTrait;
+    use ComercialContactTrait;
+    use ProductosTrait;
 
     /**
      * @var Empresa[]
@@ -93,6 +93,23 @@ abstract class NewItems
      * @return int
      */
     abstract public static function create(int $number = 50): int;
+
+    public static function clear(): void
+    {
+        self::$agents = null;
+        self::$companies = null;
+        self::$countries = null;
+        self::$customers = null;
+        self::$database = null;
+        self::$customerGroups = null;
+        self::$payments = null;
+        self::$rates = null;
+        self::$retentions = null;
+        self::$series = null;
+        self::$suppliers = null;
+        self::$taxes = null;
+        self::$users = null;
+    }
 
     /**
      * @return string

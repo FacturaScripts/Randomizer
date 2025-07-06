@@ -19,10 +19,10 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Test\Traits\LogErrorsTrait;
-use PHPUnit\Framework\TestCase;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Contactos;
+use FacturaScripts\Test\Traits\LogErrorsTrait;
+use PHPUnit\Framework\TestCase;
 
 final class ContactosTest extends TestCase
 {
@@ -30,9 +30,12 @@ final class ContactosTest extends TestCase
 
     public function testCreate(): void
     {
+        // creamos 3 contactos
+        Contactos::clear();
         $generated = Contactos::create(3);
         $this->assertEquals(3, $generated);
 
+        // comprobamos que se han creado y los eliminamos
         foreach (Contactos::getIds() as $id) {
             $contacto = new Contacto();
             $this->assertTrue($contacto->loadFromCode($id));
