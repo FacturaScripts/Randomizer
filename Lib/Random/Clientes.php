@@ -33,6 +33,12 @@ class Clientes extends NewItems
 {
     use GetIdsTrait;
 
+    public static function clear(): void
+    {
+        parent::clear();
+        self::$ids = [];
+    }
+
     public static function create(int $number = 50): int
     {
         $faker = Faker\Factory::create('es_ES');

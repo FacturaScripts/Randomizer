@@ -97,11 +97,14 @@ abstract class NewItems
     public static function clear(): void
     {
         self::$agents = null;
+        self::$attributes = null;
         self::$companies = null;
         self::$countries = null;
         self::$customers = null;
+        self::$customerGroups = null;;
         self::$database = null;
-        self::$customerGroups = null;
+        self::$families = null;
+        self::$manufacturers = null;
         self::$payments = null;
         self::$rates = null;
         self::$retentions = null;
@@ -109,6 +112,8 @@ abstract class NewItems
         self::$suppliers = null;
         self::$taxes = null;
         self::$users = null;
+        self::$variants = null;
+        self::$warehouses = null;
     }
 
     /**
