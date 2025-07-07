@@ -20,7 +20,9 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\PresupuestoProveedor;
+use FacturaScripts\Dinamic\Model\Proveedor;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\PresupuestosProveedores;
+use FacturaScripts\Plugins\Randomizer\Lib\Random\Proveedores;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +45,13 @@ final class PresupuestosProveedoresTest extends TestCase
             $doc = new PresupuestoProveedor();
             $this->assertTrue($doc->loadFromCode($id));
             $this->assertTrue($doc->delete());
+        }
+
+        // eliminamos los proveedores
+        foreach (Proveedores::getIds() as $id) {
+            $proveedor = new Proveedor();
+            $this->assertTrue($proveedor->loadFromCode($id));
+            $this->assertTrue($proveedor->delete());
         }
     }
 
