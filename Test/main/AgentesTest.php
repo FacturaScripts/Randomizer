@@ -20,7 +20,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\Agente;
-use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Agentes;
 use FacturaScripts\Test\Traits\DefaultSettingsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
@@ -34,9 +33,6 @@ final class AgentesTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::setDefaultSettings();
-
-        // cargamos algunos modelos necesarios
-        new User();
     }
 
     public function testCreate(): void

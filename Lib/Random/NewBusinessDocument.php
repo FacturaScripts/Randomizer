@@ -21,9 +21,9 @@ namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Model\Base\BusinessDocument;
 use FacturaScripts\Core\Model\Base\BusinessDocumentLine;
-use FacturaScripts\Core\Tools;
-
+use FacturaScripts\Core\Where;
 use FacturaScripts\Dinamic\Model\AgenciaTransporte;
+use FacturaScripts\Dinamic\Model\Variante;
 use Faker;
 use Faker\Generator;
 
@@ -81,7 +81,11 @@ abstract class NewBusinessDocument extends NewItems
     private static function getNewLine(&$faker, &$document): BusinessDocumentLine
     {
         $reference = static::referencia();
-        if (empty($reference)) {
+
+        // buscamos la variante
+        $variant = Variante::findWhere([Where::eq('referencia', $reference)]);
+
+        if (empty($reference) || empty($variant) || $variant->getProducto()->ventasinstock === false) {
             $newLine = $document->getNewLine();
             $newLine->descripcion = $faker->text();
             $newLine->pvpunitario = $faker->numberBetween(0, 49) * $faker->optional(0.1, 1)

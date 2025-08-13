@@ -36,11 +36,6 @@ final class AlbaranesClientesTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::setDefaultSettings();
-
-        // cargamos los modelos necesarios
-        new User();
-        new Cliente();
-        new AlbaranCliente();
     }
 
     public function testCreate(): void

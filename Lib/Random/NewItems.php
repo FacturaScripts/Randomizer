@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Base\DataBase;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\DataSrc\Impuestos;
 use FacturaScripts\Core\Tools;
 use FacturaScripts\Dinamic\Model\Empresa;
 use FacturaScripts\Dinamic\Model\FormaPago;
@@ -194,8 +195,12 @@ abstract class NewItems
     protected static function codimpuesto()
     {
         if (null === self::$taxes) {
-            $tax = new Impuesto();
-            self::$taxes = $tax->all();
+            self::$taxes = [];
+            foreach (Impuestos::all() as $imp) {
+                if ($imp->iva > 0) {
+                    self::$taxes[] = $imp;
+                }
+            }
         }
 
         shuffle(self::$taxes);
