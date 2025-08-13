@@ -19,7 +19,9 @@
 
 namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
-use FacturaScripts\Core\Base\Calculator;
+use FacturaScripts\Core\Lib\Calculator;
+use FacturaScripts\Core\Tools;
+
 use FacturaScripts\Dinamic\Model\PresupuestoCliente;
 use Faker;
 

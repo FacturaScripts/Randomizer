@@ -66,7 +66,7 @@ class Atributos extends NewItems
         for ($index = 1; $index <= $max; $index++) {
             $value = new AtributoValor();
             $value->codatributo = $parent;
-            $value->descripcion = $faker->name;
+            $value->descripcion = $faker->name();
             $value->valor = implode(' ', $faker->words());
             if (false === $value->save()) {
                 break;
