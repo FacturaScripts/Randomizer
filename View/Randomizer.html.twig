@@ -40,7 +40,7 @@
 {% macro genButton(fsc, gen, icon, label) %}
     <div class="col-sm-4">
         {% set cssColor = gen == fsc.option ? 'btn-success' : 'btn-outline-success' %}
-        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block {{ cssColor }} mb-3">
+        <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn w-100 {{ cssColor }} mb-3">
             {% if gen == fsc.option %}
                 <i class="fa-solid fa-cog fa-spin me-1" aria-hidden="true"></i>
             {% else %}
