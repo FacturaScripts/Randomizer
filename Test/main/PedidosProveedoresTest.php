@@ -22,12 +22,19 @@ namespace FacturaScripts\Test\Plugins;
 use FacturaScripts\Dinamic\Model\PedidoProveedor;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\PedidosProveedores;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Proveedores;
+use FacturaScripts\Test\Traits\DefaultSettingsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class PedidosProveedoresTest extends TestCase
 {
+    use DefaultSettingsTrait;
     use LogErrorsTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::setDefaultSettings();
+    }
 
     public function testCreate(): void
     {

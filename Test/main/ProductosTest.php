@@ -21,12 +21,19 @@ namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\Producto;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Productos;
+use FacturaScripts\Test\Traits\DefaultSettingsTrait;
 use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class ProductosTest extends TestCase
 {
+    use DefaultSettingsTrait;
     use LogErrorsTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::setDefaultSettings();
+    }
 
     public function testCreate(): void
     {

@@ -30,8 +30,8 @@ use PHPUnit\Framework\TestCase;
 
 final class AlbaranesClientesTest extends TestCase
 {
-    use LogErrorsTrait;
     use DefaultSettingsTrait;
+    use LogErrorsTrait;
 
     public static function setUpBeforeClass(): void
     {

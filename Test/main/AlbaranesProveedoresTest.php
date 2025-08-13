@@ -20,7 +20,6 @@
 namespace FacturaScripts\Test\Plugins;
 
 use FacturaScripts\Dinamic\Model\AlbaranProveedor;
-use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\AlbaranesProveedores;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Proveedores;
 use FacturaScripts\Test\Traits\DefaultSettingsTrait;
@@ -29,15 +28,12 @@ use PHPUnit\Framework\TestCase;
 
 final class AlbaranesProveedoresTest extends TestCase
 {
-    use LogErrorsTrait;
     use DefaultSettingsTrait;
+    use LogErrorsTrait;
 
     public static function setUpBeforeClass(): void
     {
         self::setDefaultSettings();
-
-        // cargamos el modelo de usuario
-        new User();
     }
 
     public function testCreate(): void

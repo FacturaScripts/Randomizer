@@ -19,14 +19,21 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Test\Traits\LogErrorsTrait;
 use FacturaScripts\Dinamic\Model\Empresa;
 use FacturaScripts\Plugins\Randomizer\Lib\Random\Empresas;
+use FacturaScripts\Test\Traits\DefaultSettingsTrait;
+use FacturaScripts\Test\Traits\LogErrorsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class EmpresasTest extends TestCase
 {
+    use DefaultSettingsTrait;
     use LogErrorsTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::setDefaultSettings();
+    }
 
     public function testCreate(): void
     {
