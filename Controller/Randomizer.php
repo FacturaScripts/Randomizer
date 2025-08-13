@@ -23,7 +23,7 @@ use FacturaScripts\Core\Base;
 use FacturaScripts\Core\Model\User;
 use FacturaScripts\Core\Tools;
 use FacturaScripts\Dinamic\Model\Comision;
-use Symfony\Component\HttpFoundation\Response;
+use FacturaScripts\Core\Response;
 
 /**
  * Controller to generate random data
@@ -66,7 +66,7 @@ class Randomizer extends Base\Controller
         $data = parent::getPageData();
         $data['menu'] = 'admin';
         $data['title'] = 'generate-test-data';
-        $data['icon'] = 'fas fa-flask';
+        $data['icon'] = 'fa-solid fa-flask';
         return $data;
     }
 
@@ -116,32 +116,32 @@ class Randomizer extends Base\Controller
 
     private function loadButtons(): void
     {
-        $this->addButton('', 'empresas', 'generated-companies', 'companies', 'fas fa-building', 'Random\\Empresas', 'Empresa');
-        $this->addButton('', 'almacenes', 'generated-warehouses', 'warehouses', 'fas fa-warehouse', 'Random\\Almacenes', 'Almacen');
-        $this->addButton('', 'transportistas', 'generated-carriers', 'carriers', 'fas fa-truck', 'Random\\AgenciasTransportes', 'AgenciaTransporte');
-        $this->addButton('', 'fabricantes', 'generated-manufacturers', 'manufacturers', 'fas fa-industry', 'Random\\Fabricantes', 'Fabricante');
-        $this->addButton('', 'familias', 'generated-families', 'families', 'fas fa-sitemap', 'Random\\Familias', 'Familia');
-        $this->addButton('', 'atributos', 'generated-attributes', 'attributes', 'fas fa-tshirt', 'Random\\Atributos', 'Atributo');
-        $this->addButton('', 'productos', 'generated-products', 'products', 'fas fa-cubes', 'Random\\Productos', 'Producto');
-        $this->addButton('', 'agentes', 'generated-agents', 'agents', 'fas fa-user-tie', 'Random\\Agentes', 'Agente');
-        $this->addButton('', 'contactos', 'generated-contacts', 'contacts', 'fas fa-users', 'Random\\Contactos', 'Contacto');
-        $this->addButton('', 'users', 'generated-users', 'users', 'fas fa-user-circle', 'Random\\Usuarios', 'User');
+        $this->addButton('', 'empresas', 'generated-companies', 'companies', 'fa-solid fa-building', 'Random\\Empresas', 'Empresa');
+        $this->addButton('', 'almacenes', 'generated-warehouses', 'warehouses', 'fa-solid fa-warehouse', 'Random\\Almacenes', 'Almacen');
+        $this->addButton('', 'transportistas', 'generated-carriers', 'carriers', 'fa-solid fa-truck', 'Random\\AgenciasTransportes', 'AgenciaTransporte');
+        $this->addButton('', 'fabricantes', 'generated-manufacturers', 'manufacturers', 'fa-solid fa-industry', 'Random\\Fabricantes', 'Fabricante');
+        $this->addButton('', 'familias', 'generated-families', 'families', 'fa-solid fa-sitemap', 'Random\\Familias', 'Familia');
+        $this->addButton('', 'atributos', 'generated-attributes', 'attributes', 'fa-solid fa-tshirt', 'Random\\Atributos', 'Atributo');
+        $this->addButton('', 'productos', 'generated-products', 'products', 'fa-solid fa-cubes', 'Random\\Productos', 'Producto');
+        $this->addButton('', 'agentes', 'generated-agents', 'agents', 'fa-solid fa-user-tie', 'Random\\Agentes', 'Agente');
+        $this->addButton('', 'contactos', 'generated-contacts', 'contacts', 'fa-solid fa-users', 'Random\\Contactos', 'Contacto');
+        $this->addButton('', 'users', 'generated-users', 'users', 'fa-solid fa-user-circle', 'Random\\Usuarios', 'User');
 
-        $this->addButton('purchases', 'proveedores', 'generated-supplier', 'suppliers', 'fas fa-users', 'Random\\Proveedores', 'Proveedor');
-        $this->addButton('purchases', 'presupuestosprov', 'generated-supplier-estimations', 'estimations', 'fas fa-copy', 'Random\\PresupuestosProveedores', 'PresupuestoProveedor');
-        $this->addButton('purchases', 'pedidosprov', 'generated-supplier-orders', 'orders', 'fas fa-copy', 'Random\\PedidosProveedores', 'PedidoProveedor');
-        $this->addButton('purchases', 'albaranesprov', 'generated-supplier-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesProveedores', 'AlbaranProveedor');
+        $this->addButton('purchases', 'proveedores', 'generated-supplier', 'suppliers', 'fa-solid fa-users', 'Random\\Proveedores', 'Proveedor');
+        $this->addButton('purchases', 'presupuestosprov', 'generated-supplier-estimations', 'estimations', 'fa-solid fa-copy', 'Random\\PresupuestosProveedores', 'PresupuestoProveedor');
+        $this->addButton('purchases', 'pedidosprov', 'generated-supplier-orders', 'orders', 'fa-solid fa-copy', 'Random\\PedidosProveedores', 'PedidoProveedor');
+        $this->addButton('purchases', 'albaranesprov', 'generated-supplier-delivery-notes', 'delivery-notes', 'fa-solid fa-copy', 'Random\\AlbaranesProveedores', 'AlbaranProveedor');
 
-        $this->addButton('sales', 'grupos', 'generated-customer-groups', 'customer-groups', 'fas fa-users-cog', 'Random\\GruposClientes', 'GrupoClientes');
-        $this->addButton('sales', 'clientes', 'generated-customers', 'customers', 'fas fa-users', 'Random\\Clientes', 'Cliente');
+        $this->addButton('sales', 'grupos', 'generated-customer-groups', 'customer-groups', 'fa-solid fa-users-cog', 'Random\\GruposClientes', 'GrupoClientes');
+        $this->addButton('sales', 'clientes', 'generated-customers', 'customers', 'fa-solid fa-users', 'Random\\Clientes', 'Cliente');
 
         if (class_exists(Comision::class)) {
-            $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fas fa-percentage', 'Random\\Comisiones', 'Comision');
+            $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fa-solid fa-percentage', 'Random\\Comisiones', 'Comision');
         }
 
-        $this->addButton('sales', 'presupuestoscli', 'generated-customer-estimations', 'estimations', 'fas fa-copy', 'Random\\PresupuestosClientes', 'PresupuestoCliente');
-        $this->addButton('sales', 'pedidoscli', 'generated-customer-orders', 'orders', 'fas fa-copy', 'Random\\PedidosClientes', 'PedidoCliente');
-        $this->addButton('sales', 'albaranescli', 'generated-customer-delivery-notes', 'delivery-notes', 'fas fa-copy', 'Random\\AlbaranesClientes', 'AlbaranCliente');
+        $this->addButton('sales', 'presupuestoscli', 'generated-customer-estimations', 'estimations', 'fa-solid fa-copy', 'Random\\PresupuestosClientes', 'PresupuestoCliente');
+        $this->addButton('sales', 'pedidoscli', 'generated-customer-orders', 'orders', 'fa-solid fa-copy', 'Random\\PedidosClientes', 'PedidoCliente');
+        $this->addButton('sales', 'albaranescli', 'generated-customer-delivery-notes', 'delivery-notes', 'fa-solid fa-copy', 'Random\\AlbaranesClientes', 'AlbaranCliente');
 
         $this->pipe('loadButtons');
     }

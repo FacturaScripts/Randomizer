@@ -21,6 +21,8 @@ namespace FacturaScripts\Plugins\Randomizer\Lib\Random;
 
 use FacturaScripts\Core\Model\Base\BusinessDocument;
 use FacturaScripts\Core\Model\Base\BusinessDocumentLine;
+use FacturaScripts\Core\Tools;
+
 use FacturaScripts\Dinamic\Model\AgenciaTransporte;
 use Faker;
 use Faker\Generator;

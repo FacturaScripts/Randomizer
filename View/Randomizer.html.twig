@@ -14,7 +14,7 @@
                                 <a href="{{ fsc.url() }}" class="btn btn-sm btn-warning">{{ trans('cancel') }}</a>
                             {% else %}
                                 <a href="{{ fsc.url() }}" class="btn btn-sm btn-outline-secondary">
-                                    <i class="fas fa-sync" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-sync" aria-hidden="true"></i>
                                 </a>
                             {% endif %}
                         </h1>
@@ -24,7 +24,7 @@
                                 <h3 class="mt-4">{{ trans(title) }}</h3>
                                 <hr/>
                             {% endif %}
-                            <div class="form-row">
+                            <div class="row">
                                 {% for item in group %}
                                     {{ _self.genButton(fsc, item.action, item.icon, item.label) }}
                                 {% endfor %}
@@ -42,13 +42,13 @@
         {% set cssColor = gen == fsc.option ? 'btn-success' : 'btn-outline-success' %}
         <a href="{{ fsc.url() }}?gen={{ gen }}" class="btn btn-block {{ cssColor }} mb-3">
             {% if gen == fsc.option %}
-                <i class="fas fa-cog fa-spin mr-1" aria-hidden="true"></i>
+                <i class="fa-solid fa-cog fa-spin me-1" aria-hidden="true"></i>
             {% else %}
-                <i class="{{ icon }} mr-1" aria-hidden="true"></i>
+                <i class="{{ icon }} me-1" aria-hidden="true"></i>
             {% endif %}
             {{ trans(label) }}
             {% if fsc.totalCounter[gen] > 0 %}
-                <span class="badge badge-success">{{ fsc.totalCounter[gen] }}</span>
+                <span class="badge bg-success">{{ fsc.totalCounter[gen] }}</span>
             {% endif %}
         </a>
     </div>
