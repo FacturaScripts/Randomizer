@@ -22,7 +22,6 @@ namespace FacturaScripts\Plugins\Randomizer\Controller;
 use FacturaScripts\Core\Base;
 use FacturaScripts\Core\Model\User;
 use FacturaScripts\Core\Tools;
-use FacturaScripts\Dinamic\Model\Comision;
 use FacturaScripts\Core\Response;
 
 /**
@@ -134,10 +133,6 @@ class Randomizer extends Base\Controller
 
         $this->addButton('sales', 'grupos', 'generated-customer-groups', 'customer-groups', 'fa-solid fa-users-cog', 'Random\\GruposClientes', 'GrupoClientes');
         $this->addButton('sales', 'clientes', 'generated-customers', 'customers', 'fa-solid fa-users', 'Random\\Clientes', 'Cliente');
-
-        if (class_exists(Comision::class)) {
-            $this->addButton('sales', 'comisiones', 'generated-commissions', 'commissions', 'fa-solid fa-percentage', 'Random\\Comisiones', 'Comision');
-        }
 
         $this->addButton('sales', 'presupuestoscli', 'generated-customer-estimations', 'estimations', 'fa-solid fa-copy', 'Random\\PresupuestosClientes', 'PresupuestoCliente');
         $this->addButton('sales', 'pedidoscli', 'generated-customer-orders', 'orders', 'fa-solid fa-copy', 'Random\\PedidosClientes', 'PedidoCliente');
