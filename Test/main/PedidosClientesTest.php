@@ -34,6 +34,7 @@ final class PedidosClientesTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::setDefaultSettings();
+        self::loadCoreModels();
     }
 
     public function testCreate(): void
