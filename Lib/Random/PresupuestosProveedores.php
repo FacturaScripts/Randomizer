@@ -44,7 +44,12 @@ class PresupuestosProveedores extends NewBusinessDocument
         for ($generated = 0; $generated < $number; $generated++) {
 
             $doc = new PresupuestoProveedor();
-            $doc->setSubject(static::proveedor());
+            if (false === $doc->setSubject(static::proveedor())) {
+                static::dataBase()->rollback();
+
+                return $generated;
+            }
+
             $doc->codalmacen = static::codalmacen();
             $doc->codpago = static::codpago();
             $doc->codserie = static::codserie();

@@ -62,6 +62,16 @@ trait ComercialContactTrait
             self::$customers = $customer->all();
         }
 
+        // si no hay clientes, creamos uno para poder generar documentos
+        if (empty(self::$customers)) {
+            $newCustomer = new Cliente();
+            $newCustomer->cifnif = static::cifnif();
+            $newCustomer->nombre = 'Cliente ' . mt_rand(1, 9999);
+            if ($newCustomer->save()) {
+                self::$customers[] = $newCustomer;
+            }
+        }
+
         shuffle(self::$customers);
         return empty(self::$customers) ? new Cliente() : self::$customers[0];
     }
@@ -116,6 +126,16 @@ trait ComercialContactTrait
         if (null === self::$suppliers) {
             $supplier = new Proveedor();
             self::$suppliers = $supplier->all();
+        }
+
+        // si no hay proveedores, creamos uno para poder generar documentos
+        if (empty(self::$suppliers)) {
+            $newSupplier = new Proveedor();
+            $newSupplier->cifnif = static::cifnif();
+            $newSupplier->nombre = 'Proveedor ' . mt_rand(1, 9999);
+            if ($newSupplier->save()) {
+                self::$suppliers[] = $newSupplier;
+            }
         }
 
         shuffle(self::$suppliers);

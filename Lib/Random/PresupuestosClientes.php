@@ -44,7 +44,12 @@ class PresupuestosClientes extends NewBusinessDocument
         for ($generated = 0; $generated < $number; $generated++) {
 
             $doc = new PresupuestoCliente();
-            $doc->setSubject(static::cliente());
+            if (false === $doc->setSubject(static::cliente())) {
+                static::dataBase()->rollback();
+
+                return $generated;
+            }
+
             $doc->codagente = static::codagente();
             $doc->codalmacen = static::codalmacen();
             $doc->codigoenv = $faker->optional()->isbn13();
